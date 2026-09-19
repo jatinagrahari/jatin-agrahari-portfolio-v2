@@ -1,12 +1,9 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const LetsWork = () => {
-  const [stars, setStars] = useState([]);
-
-  useEffect(() => {
-    // Generate random stars on mount
-    const newStars = Array.from({ length: 100 }).map(() => ({
+  const [stars] = useState(() => {
+    return Array.from({ length: 100 }).map(() => ({
       id: Math.random(),
       top: `${Math.random() * 100}%`,
       left: `${Math.random() * 100}%`,
@@ -15,8 +12,7 @@ const LetsWork = () => {
       animationDuration: `${Math.random() * 3 + 2}s`,
       animationDelay: `${Math.random() * 2}s`,
     }));
-    setStars(newStars);
-  }, []);
+  });
 
   return (
     <section className="relative w-full min-h-[80vh] bg-darker flex flex-col items-center justify-center text-center px-6 overflow-hidden">
