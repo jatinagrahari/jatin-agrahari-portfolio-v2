@@ -9,9 +9,9 @@ const Button = ({
 }) => {
   const classes = {
     primary:
-      " cursor-pointer  bg-accent text-black font-mono text-[13px] font-medium px-6 py-3 rounded-full hover:bg-white/80 transition-colors flex items-center gap-2",
+      " cursor-pointer  bg-accent text-black font-mono text-[13px] font-medium px-3 md:px-6 py-3 rounded-full hover:bg-white/80 transition-colors flex items-center gap-2",
     secondary:
-      "  cursor-pointer  bg-transparent border border-gray-600 text-white/80 font-mono text-[13px] px-6 py-3 rounded-full hover:border-gray-400 transition-colors flex items-center gap-2",
+      "  cursor-pointer  bg-transparent border border-gray-600 text-white/80 font-mono text-[13px] px-3 md:px-6 py-3 rounded-full hover:border-gray-400 transition-colors flex items-center gap-2",
   };
 
   return (

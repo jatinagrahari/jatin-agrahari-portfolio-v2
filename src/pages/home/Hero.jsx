@@ -6,12 +6,15 @@ import { siteConfig } from "../../data";
 const Hero = () => {
   return (
     <section className="relative">
-      <div className="absolute top-0 w-full z-50">
+      {/* Navbar */}
+      <div className="absolute top-0 left-0 w-full z-50">
         <Navbar />
       </div>
-      <div className="h-screen flex justify-center overflow-x-hidden bg-grid-pattern relative">
-        {/* Hero Section */}
-        <div className="px-6 pt-24 mx-auto flex flex-col w-full relative z-10 justify-center items-center">
+
+      {/* Hero */}
+      <div className="relative h-screen w-full overflow-x-hidden bg-grid-pattern flex items-center justify-center">
+        {/* Main Hero Container */}
+        <div className="relative z-10 w-full px-6 flex flex-col items-center justify-center">
           {/* Giant Monogram Background */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 30 }}
@@ -20,7 +23,7 @@ const Hero = () => {
               duration: 1.2,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="absolute top-20 left-1/2 -translate-x-1/2 w-full flex justify-center items-start -z-10  pointer-events-none select-none"
+            className="absolute inset-0 flex items-center justify-center -z-10 pointer-events-none select-none"
           >
             <div
               className="text-[40vw] leading-[0.75] text-black tracking-tighter"
@@ -30,7 +33,7 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Main Hero Content */}
+          {/* Main Content */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -42,9 +45,9 @@ const Hero = () => {
                 },
               },
             }}
-            className="w-full flex flex-col items-center justify-center mb-20 mt-10 relative z-10"
+            className="relative z-10 w-full flex flex-col items-center justify-center"
           >
-            {/* Name — Mac Dock Magnification */}
+            {/* Name */}
             <motion.div
               variants={{
                 hidden: {
@@ -62,12 +65,12 @@ const Hero = () => {
                   },
                 },
               }}
+              className="flex justify-center w-full"
             >
-              {/* name animation */}
               <DockName owner={siteConfig.owner} />
             </motion.div>
 
-            {/* Hero Description */}
+            {/* Description */}
             <motion.p
               variants={{
                 hidden: {
@@ -85,7 +88,7 @@ const Hero = () => {
                   },
                 },
               }}
-              className="text-xl mt-20 max-w-3xl text-muted text-center"
+              className="mt-12 max-w-3xl text-md md:text-xl text-muted text-center"
             >
               {siteConfig.heroHeading}
             </motion.p>
@@ -106,18 +109,14 @@ const Hero = () => {
                   },
                 },
               }}
-              className="flex gap-10 mt-20"
+              className="flex gap-10 mt-12"
             >
               <a
                 href="mailto:hello@jatinagrahari.com"
                 target="_blank"
                 rel="noreferrer"
               >
-                <Button
-                  type={"primary"}
-                  children={"Get in touch"}
-                  arrow={"plain"}
-                />
+                <Button type="primary" children="Get in touch" arrow="plain" />
               </a>
 
               <a
@@ -126,9 +125,9 @@ const Hero = () => {
                 rel="noreferrer"
               >
                 <Button
-                  type={"secondary"}
-                  children={"Connect on LinkedIn"}
-                  arrow={"other"}
+                  type="secondary"
+                  children="Connect on LinkedIn"
+                  arrow="other"
                 />
               </a>
             </motion.div>

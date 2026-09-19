@@ -170,6 +170,7 @@ const About = () => {
                 {/* 2026 */}
                 {engineeringJourney.map((item) => (
                   <motion.div
+                    key={item.title}
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: false, amount: 0.2 }}

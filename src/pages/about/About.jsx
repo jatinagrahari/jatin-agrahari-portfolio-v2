@@ -14,7 +14,7 @@ const TimelineItem = ({ index, year, title, text }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="relative w-full max-w-5xl mx-auto flex items-center justify-center py-24 md:py-32"
+      className="relative w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-center py-12 md:py-32 px-4 md:px-0"
     >
       {/* The Year Badge (Centered) */}
       <motion.div
@@ -22,10 +22,10 @@ const TimelineItem = ({ index, year, title, text }) => {
         whileInView={{ scale: 1, opacity: 1 }}
         viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-dark px-4 py-2"
+        className="relative md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-10 bg-dark px-4 py-2 mb-6 md:mb-0"
       >
         <span
-          className="text-4xl md:text-5xl text-accent"
+          className="text-3xl sm:text-4xl md:text-5xl text-accent"
           style={{ fontFamily: "var(--font-display)" }}
         >
           {year}
@@ -33,17 +33,20 @@ const TimelineItem = ({ index, year, title, text }) => {
       </motion.div>
 
       <div
-        className={`w-full flex flex-col md:flex-row items-center gap-12 md:gap-0 ${imageOnLeft ? "" : "md:flex-row-reverse"}`}
+        className={`w-full flex flex-col md:flex-row items-center gap-8 md:gap-0 ${
+          imageOnLeft ? "" : "md:flex-row-reverse"
+        }`}
       >
         {/* Image Side */}
         <div
-          className={`w-full md:w-1/2 flex justify-center ${imageOnLeft ? "md:pr-16 lg:pr-24" : "md:pl-16 lg:pl-24"}`}
+          className={`w-full md:w-1/2 hidden md:flex justify-center ${
+            imageOnLeft ? "md:pr-16 lg:pr-24" : "md:pl-16 lg:pl-24"
+          }`}
         >
           {/* <motion.div
             whileHover={{ scale: 1.02 }}
             className="w-full max-w-sm aspect-[4/3] bg-surface rounded-2xl overflow-hidden border border-border shadow-2xl"
           >
-            
             <div className="w-full h-full bg-gradient-to-br from-gray-800 to-black flex items-center justify-center text-muted font-mono text-sm">
               Photo Placeholder
             </div>
@@ -52,18 +55,22 @@ const TimelineItem = ({ index, year, title, text }) => {
 
         {/* Text Side */}
         <div
-          className={`w-full md:w-1/2 flex flex-col justify-center ${imageOnLeft ? "md:pl-16 lg:pl-24 text-left" : "md:pr-16 lg:pr-24 md:text-right text-left"}`}
+          className={`w-full md:w-1/2 flex flex-col items-center md:items-start justify-center text-center ${
+            imageOnLeft
+              ? "md:pl-16 lg:pl-24 md:text-left"
+              : "md:pr-16 lg:pr-24 md:text-right"
+          }`}
         >
-          <p className="text-light text-xs font-mono tracking-widest uppercase mb-4">
+          <p className="hidden md:block text-light text-xs font-mono tracking-widest uppercase mb-4">
             {year}
           </p>
           <h3
-            className="text-3xl md:text-4xl text-text mb-6 leading-none"
+            className="text-2xl sm:text-3xl md:text-4xl text-text mb-4 md:mb-6 leading-tight md:leading-none max-w-full wrap-break-word"
             style={{ fontFamily: "var(--font-display)" }}
           >
             {title}
           </h3>
-          <p className="text-muted text-base md:text-lg leading-relaxed">
+          <p className="text-muted text-base md:text-lg leading-relaxed max-w-lg">
             {text}
           </p>
         </div>
@@ -82,7 +89,7 @@ const About = () => {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   return (
-    <div className="w-full bg-dark min-h-screen relative">
+    <div className="w-full bg-dark min-h-screen relative overflow-x-hidden">
       <div className="absolute top-0 w-full z-50">
         <Navbar />
       </div>
@@ -110,7 +117,7 @@ const About = () => {
           initial={{ opacity: 0, scale: 0.9, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="relative z-10 text-[25vw] md:text-[20vw] text-text uppercase leading-none tracking-tighter"
+          className="relative z-10 text-[20vw] sm:text-[22vw] md:text-[20vw] text-text uppercase leading-none tracking-tighter"
           style={{ fontFamily: "var(--font-display)" }}
         >
           About
@@ -118,18 +125,18 @@ const About = () => {
       </section>
 
       {/* 2. Philosophy Section */}
-      <section className="w-full py-24 md:py-32 px-6">
+      <section className="w-full py-16 md:py-32 px-6">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto text-center mb-24"
+          className="max-w-4xl mx-auto text-center mb-16 md:mb-24"
         >
-          <h2 className="text-3xl md:text-5xl text-text mb-8 leading-tight font-serif">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl text-text mb-6 md:mb-8 leading-tight font-serif">
             {aboutData.aboutTitle}
           </h2>
-          <p className="text-muted text-lg leading-relaxed max-w-3xl mx-auto">
+          <p className="text-muted text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
             {aboutData.aboutIntro}
           </p>
         </motion.div>
@@ -138,7 +145,7 @@ const About = () => {
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           {aboutData.cards.map((card, i) => (
             <motion.div
-              key={i}
+              key={card.title}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, margin: "-50px" }}
@@ -163,21 +170,21 @@ const About = () => {
       </section>
 
       {/* 3. My Story Timeline */}
-      <section className="w-full py-32 px-6 relative">
+      <section className="w-full py-16 md:py-32 px-4 md:px-6 relative">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="max-w-3xl mx-auto text-center mb-32 relative z-10 bg-dark py-8"
+          className="max-w-3xl mx-auto text-center mb-16 md:mb-32 relative z-10 bg-dark py-6 md:py-8"
         >
           <h2
-            className="text-6xl md:text-8xl text-light mb-8 uppercase"
+            className="text-5xl sm:text-6xl md:text-8xl text-light mb-6 md:mb-8 uppercase"
             style={{ fontFamily: "var(--font-display)" }}
           >
             My Story
           </h2>
-          <p className="text-xl text-muted leading-relaxed">
+          <p className="text-lg md:text-xl text-muted leading-relaxed">
             {aboutData.journeyTitle}
           </p>
         </motion.div>
@@ -195,12 +202,11 @@ const About = () => {
           ></motion.div>
           {aboutData.timelineData.map((item, index) => (
             <TimelineItem
+              key={item.title}
               index={index}
               year={item.year}
-              // location="MILWAUKEE, WISCONSIN"
               title={item.title}
               text={item.description}
-              imageOnLeft={false}
             />
           ))}
         </div>

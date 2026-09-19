@@ -124,7 +124,7 @@ const LetsWork = () => {
           className="flex flex-col sm:flex-row items-center gap-4"
         >
           <motion.a
-            href="mailto:hello@example.com"
+            href="mailto:hello@jatinagrahari.com"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="px-8 py-4 rounded-full bg-light text-darker font-semibold text-sm transition-colors hover:bg-white shadow-md"
@@ -133,7 +133,7 @@ const LetsWork = () => {
           </motion.a>
 
           <motion.a
-            href="https://linkedin.com"
+            href="https://linkedin.com/in/jatinagrahari"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
