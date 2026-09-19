@@ -22,11 +22,12 @@
 }
 
 @layer base {
-  body {
+  html, body {
     background-color: var(--color-dark);
     color: white;
     font-family: var(--font-serif);
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   h1,

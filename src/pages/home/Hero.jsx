@@ -12,7 +12,7 @@ const Hero = () => {
       </div>
 
       {/* Hero */}
-      <div className="relative h-screen w-full overflow-x-hidden bg-grid-pattern flex items-center justify-center">
+      <div className="relative min-h-screen w-full overflow-hidden bg-grid-pattern flex items-center justify-center">
         {/* Main Hero Container */}
         <div className="relative z-10 w-full px-6 flex flex-col items-center justify-center">
           {/* Giant Monogram Background */}
