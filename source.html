@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harrison Wheeler — Design leader, builder, community maker</title>
+  <meta name="description" content="Harrison Wheeler is a design leader who has spent over a decade leading design teams at companies like LinkedIn and Zendesk, scaling organizations and shipping products used by more than a billion people." />
+  <meta name="author" content="Harrison Wheeler" />
+  <link rel="canonical" href="https://www.harrisonwheeler.com/" />
+
+  <link rel="icon" href="assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Harrison Wheeler" />
+  <meta property="og:title" content="Harrison Wheeler — Design leader, builder, community maker" />
+  <meta property="og:description" content="Scaling design organizations and shipping products used by more than a billion people." />
+  <meta property="og:url" content="https://www.harrisonwheeler.com/" />
+  <meta property="og:image" content="https://www.harrisonwheeler.com/assets/og-image.jpg?v=2" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Harrison Wheeler — Design leader, builder, community maker" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Harrison Wheeler — Design leader, builder, community maker" />
+  <meta name="twitter:description" content="Scaling design organizations and shipping products used by more than a billion people." />
+  <meta name="twitter:image" content="https://www.harrisonwheeler.com/assets/og-image.jpg?v=2" />
+
+  <!-- ===== Google Search Console verification — replace token ===== -->
+  <!-- Google Search Console verification. Paste the token from
+       Search Console > Settings > Ownership verification > HTML tag,
+       then uncomment. An invalid token verifies nothing, so this stays
+       commented out until the real value is in place.
+  <meta name="google-site-verification" content="PASTE_GSC_TOKEN_HERE" />
+  -->
+
+  <!-- ===== Google Analytics 4 — replace G-V0RBJMB8WZ ===== -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0RBJMB8WZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V0RBJMB8WZ', { anonymize_ip: true });
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/deck.css" />
+
+  <!-- Home intro: lock the viewport + hide the nav until the HW logo has faded
+       from white to dark (~1.5s). Added before first paint so the nav never
+       flashes; self-releasing so a script error can't leave scroll locked. -->
+  <script>
+    (function () {
+      try {
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce) return;
+        var de = document.documentElement;
+        de.classList.add('hero-intro-lock');
+        setTimeout(function () { de.classList.remove('hero-intro-lock'); }, 1500);
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://www.harrisonwheeler.com/#person",
+        "mainEntityOfPage": {
+          "@id": "https://www.harrisonwheeler.com/about#webpage"
+        },
+        "name": "Harrison Wheeler",
+        "givenName": "Harrison",
+        "familyName": "Wheeler",
+        "gender": "Male",
+        "birthDate": "1987",
+        "birthPlace": {
+          "@type": "Place",
+          "name": "Milwaukee, Wisconsin, United States",
+          "sameAs": "https://en.wikipedia.org/wiki/Milwaukee"
+        },
+        "nationality": {
+          "@type": "Country",
+          "name": "United States of America"
+        },
+        "knowsLanguage": "en",
+        "url": "https://www.harrisonwheeler.com/",
+        "image": {
+          "@id": "https://www.harrisonwheeler.com/#headshot"
+        },
+        "description": "Harrison Wheeler is an American design leader, founder, and podcast host. Over a decade leading design at LinkedIn and Zendesk, he scaled design organizations and shipped products used by more than a billion people. He is the founder of LeadCraft and the host and creator of the Technically Speaking podcast.",
+        "disambiguatingDescription": "American product design leader, founder of LeadCraft, and host of the Technically Speaking podcast.",
+        "jobTitle": [
+          "Design Leader",
+          "Founder",
+          "Podcast Host"
+        ],
+        "hasOccupation": [
+          {
+            "@type": "Occupation",
+            "name": "Product Design Leader",
+            "occupationLocation": {
+              "@type": "City",
+              "name": "San Francisco"
+            }
+          },
+          {
+            "@type": "Occupation",
+            "name": "Podcaster"
+          }
+        ],
+        "worksFor": {
+          "@id": "https://www.harrisonwheeler.com/#leadcraft"
+        },
+        "alumniOf": [
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Iowa",
+            "sameAs": "https://en.wikipedia.org/wiki/University_of_Iowa"
+          },
+          {
+            "@type": "Organization",
+            "name": "LinkedIn",
+            "url": "https://www.linkedin.com/",
+            "sameAs": "https://en.wikipedia.org/wiki/LinkedIn"
+          },
+          {
+            "@type": "Organization",
+            "name": "Zendesk",
+            "url": "https://www.zendesk.com/",
+            "sameAs": "https://en.wikipedia.org/wiki/Zendesk"
+          },
+          {
+            "@type": "Organization",
+            "name": "Base CRM"
+          }
+        ],
+        "homeLocation": {
+          "@type": "Place",
+          "name": "San Francisco, California, United States",
+          "sameAs": "https://en.wikipedia.org/wiki/San_Francisco"
+        },
+        "workLocation": {
+          "@type": "Place",
+          "name": "San Francisco, California, United States"
+        },
+        "award": [
+          "Amplitude Product 50 — Best Product Design Leader (2026)",
+          "Smashing Magazine Person of the Week"
+        ],
+        "knowsAbout": [
+          "Product Design",
+          "Design Leadership",
+          "Design Management",
+          "Design Systems",
+          "User Experience Design",
+          "Design Organization Strategy",
+          "Team Building",
+          "Facilitation",
+          "AI in Design",
+          "Mentorship and Coaching"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/in/hmwheeler",
+          "https://github.com/hmwheele",
+          "https://medium.com/@hmwheele",
+          "https://technicallyspeakinghw.substack.com",
+          "https://technicallyspeakinghw.com",
+          "https://www.threads.com/@hmwheele",
+          "https://bsky.app/profile/hmwheele.bsky.social",
+          "https://www.youtube.com/@TechnicallySpeakingHW"
+        ],
+        "subjectOf": [
+          {
+            "@type": "Article",
+            "name": "Amplitude Product 50: The Most Innovative People in Product",
+            "url": "https://amplitude.com/blog/product-50-winner-harrison-wheeler",
+            "publisher": {
+              "@type": "Organization",
+              "name": "Amplitude"
+            }
+          },
+          {
+            "@type": "PodcastEpisode",
+            "name": "The Object-Oriented UX — Introducing object-oriented thinking to LinkedIn",
+            "url": "https://ooux.com/resources/episode022",
+            "partOfSeries": {
+              "@type": "PodcastSeries",
+              "name": "The OOUX Podcast"
+            }
+          },
+          {
+            "@type": "PodcastEpisode",
+            "name": "Awkward Silences — How Storytelling Can Make User Research More Impactful",
+            "url": "https://podcast.userinterviews.com/episodes/52-the-missing-ingredient-how-storytelling-can-make-user-research-more-impactful-with-harrison-wheeler-ux-design-manager-at-linkedin",
+            "partOfSeries": {
+              "@type": "PodcastSeries",
+              "name": "Awkward Silences"
+            }
+          }
+        ],
+        "performerIn": [
+          {
+            "@type": "Event",
+            "name": "Figma Config 2022 — The Design MC: Facilitating Safe and Inclusive Environments for Feedback",
+            "startDate": "2022",
+            "location": {
+              "@type": "VirtualLocation",
+              "url": "https://config.figma.com"
+            },
+            "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "performer": {
+              "@id": "https://www.harrisonwheeler.com/#person"
+            }
+          },
+          {
+            "@type": "Event",
+            "name": "Design Matters Tokyo 2025 — How AI is Reshaping Design Leadership and Culture",
+            "startDate": "2025",
+            "location": {
+              "@type": "Place",
+              "name": "Tokyo, Japan"
+            },
+            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "performer": {
+              "@id": "https://www.harrisonwheeler.com/#person"
+            }
+          },
+          {
+            "@type": "Event",
+            "name": "SmashingConf New York 2022",
+            "startDate": "2022",
+            "location": {
+              "@type": "Place",
+              "name": "New York, New York, United States"
+            },
+            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "performer": {
+              "@id": "https://www.harrisonwheeler.com/#person"
+            }
+          },
+          {
+            "@type": "Event",
+            "name": "SmashingConf Freiburg 2023",
+            "startDate": "2023",
+            "location": {
+              "@type": "Place",
+              "name": "Freiburg, Germany"
+            },
+            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "performer": {
+              "@id": "https://www.harrisonwheeler.com/#person"
+            }
+          },
+          {
+            "@type": "Event",
+            "name": "ConveyUX 2025",
+            "startDate": "2025",
+            "location": {
+              "@type": "Place",
+              "name": "Seattle, Washington, United States"
+            },
+            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "performer": {
+              "@id": "https://www.harrisonwheeler.com/#person"
+            }
+          }
+        ]
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://www.harrisonwheeler.com/#headshot",
+        "url": "https://www.harrisonwheeler.com/assets/profile-image.jpg",
+        "contentUrl": "https://www.harrisonwheeler.com/assets/profile-image.jpg",
+        "width": 960,
+        "height": 960,
+        "caption": "Harrison Wheeler"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://www.harrisonwheeler.com/#leadcraft",
+        "name": "LeadCraft",
+        "description": "A platform for design leaders navigating an era where everything, including how we work with AI, is changing. Frameworks, rituals, and real stories for growing your team and yourself.",
+        "founder": {
+          "@id": "https://www.harrisonwheeler.com/#person"
+        },
+        "url": "https://www.harrisonwheeler.com/"
+      },
+      {
+        "@type": "PodcastSeries",
+        "@id": "https://www.harrisonwheeler.com/#podcast",
+        "name": "Technically Speaking",
+        "url": "https://technicallyspeakinghw.com",
+        "description": "Candid conversations with designers, builders, and leaders on craft, careers, and the human side of building products and teams.",
+        "author": {
+          "@id": "https://www.harrisonwheeler.com/#person"
+        },
+        "creator": {
+          "@id": "https://www.harrisonwheeler.com/#person"
+        },
+        "sameAs": [
+          "https://www.youtube.com/@TechnicallySpeakingHW",
+          "https://technicallyspeakinghw.substack.com"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.harrisonwheeler.com/#website",
+        "url": "https://www.harrisonwheeler.com/",
+        "name": "Harrison Wheeler",
+        "description": "The personal site of Harrison Wheeler, product design leader, founder, and podcast host.",
+        "inLanguage": "en-US",
+        "publisher": {
+          "@id": "https://www.harrisonwheeler.com/#person"
+        },
+        "copyrightHolder": {
+          "@id": "https://www.harrisonwheeler.com/#person"
+        },
+        "about": {
+          "@id": "https://www.harrisonwheeler.com/#person"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.harrisonwheeler.com/#webpage",
+        "url": "https://www.harrisonwheeler.com/",
+        "name": "Harrison Wheeler — Design leader, builder, community maker",
+        "description": "Harrison Wheeler is a design leader who has spent over a decade leading design teams at companies like LinkedIn and Zendesk, scaling organizations and shipping products used by more than a billion people.",
+        "isPartOf": {
+          "@id": "https://www.harrisonwheeler.com/#website"
+        },
+        "about": {
+          "@id": "https://www.harrisonwheeler.com/#person"
+        },
+        "primaryImageOfPage": {
+          "@id": "https://www.harrisonwheeler.com/#headshot"
+        },
+        "inLanguage": "en-US"
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="home">
+  <!-- Intro loading bar: sweeps across the top while the HW logo tones in. -->
+  <div class="hero-loadbar" aria-hidden="true"></div>
+  <!-- ── Nav ── -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="/"><img class="nav-logo-img" src="assets/hwlogo.svg" alt="Harrison Wheeler logo" width="36" /><span class="nav-logo-name">Harrison Wheeler</span></a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="assets/files/Resume_May_2026.pdf" target="_blank" rel="noopener">CV</a>
+        <a class="nav-ext" href="https://technicallyspeakinghw.com" target="_blank" rel="noopener">Podcast<svg class="nav-ext-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ── Hero (page-centered content) ── -->
+    <section class="hero hero--stage">
+      <img class="hero-logo-bg" src="assets/hwlogo.svg" alt="" aria-hidden="true" />
+      <div class="container hero-stage-content">
+        <h1 class="hero-bigname">Harrison<br class="bigname-br" /> Wheeler</h1>
+        <p class="lede">Product design leader defining experiences and the teams behind them.</p>
+        <div class="hero-actions">
+          <a class="btn btn-hero" href="mailto:hello@harrisonwheeler.com">Get in touch →</a>
+          <a class="btn btn-hero-ghost" href="https://www.linkedin.com/in/hmwheeler" target="_blank" rel="noopener">Connect on LinkedIn<svg class="btn-ext-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Belief + career timeline ── -->
+    <section class="belief container section">
+      <div class="belief-grid">
+        <div class="belief-text" data-reveal-up>
+          <p class="big">Designer, builder, and community maker. Across a decade leading design at LinkedIn and Zendesk, I've turned quality into a business strategy, shipping experiences used by more than a billion people, growing designers into leaders, and following curiosity into products, writing, and a podcast of my own.</p>
+          <a class="btn btn-ghost belief-more" href="/about">Read more</a>
+        </div>
+        <aside class="timeline" aria-label="Career timeline">
+          <div class="timeline-photo" data-reveal-up>
+            <img class="timeline-photo-img" src="assets/profile-image.jpg" alt="Harrison Wheeler" loading="lazy" width="960" height="960" />
+            <span class="badge-circle" aria-hidden="true">
+              <svg class="badge-burst" viewBox="0 0 100 100"><defs><radialGradient id="burst-grad" gradientUnits="userSpaceOnUse" cx="50" cy="50" r="15"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#ffd8e4"/></radialGradient></defs><g class="badge-spokes" stroke="url(#burst-grad)"><line x1="52.00" y1="50.00" x2="65.00" y2="50.00"/><line x1="51.90" y1="50.62" x2="64.27" y2="54.64"/><line x1="51.62" y1="51.18" x2="62.14" y2="58.82"/><line x1="51.18" y1="51.62" x2="58.82" y2="62.14"/><line x1="50.62" y1="51.90" x2="54.64" y2="64.27"/><line x1="50.00" y1="52.00" x2="50.00" y2="65.00"/><line x1="49.38" y1="51.90" x2="45.36" y2="64.27"/><line x1="48.82" y1="51.62" x2="41.18" y2="62.14"/><line x1="48.38" y1="51.18" x2="37.86" y2="58.82"/><line x1="48.10" y1="50.62" x2="35.73" y2="54.64"/><line x1="48.00" y1="50.00" x2="35.00" y2="50.00"/><line x1="48.10" y1="49.38" x2="35.73" y2="45.36"/><line x1="48.38" y1="48.82" x2="37.86" y2="41.18"/><line x1="48.82" y1="48.38" x2="41.18" y2="37.86"/><line x1="49.38" y1="48.10" x2="45.36" y2="35.73"/><line x1="50.00" y1="48.00" x2="50.00" y2="35.00"/><line x1="50.62" y1="48.10" x2="54.64" y2="35.73"/><line x1="51.18" y1="48.38" x2="58.82" y2="37.86"/><line x1="51.62" y1="48.82" x2="62.14" y2="41.18"/><line x1="51.90" y1="49.38" x2="64.27" y2="45.36"/></g></svg>
+              <svg class="badge-ring" viewBox="0 0 100 100">
+                <defs><path id="badge-arc" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
+                <text><textPath href="#badge-arc" textLength="238.79" lengthAdjust="spacingAndGlyphs">AMPLITUDE PRODUCT 50 &#183; BEST PRODUCT DESIGN LEADER &#183;&#160;</textPath></text>
+              </svg>
+            </span>
+          </div>
+          <div class="timeline-group">
+            <p class="timeline-year">2026</p>
+            <div class="timeline-item">
+              <span class="timeline-logo"><img src="assets/logos/leadcraft.jpg" alt="" loading="lazy" width="256" height="256" /></span>
+              <span><strong>LeadCraft</strong><em>Founder</em></span>
+            </div>
+          </div>
+          <div class="timeline-group">
+            <p class="timeline-year">2023</p>
+            <div class="timeline-item">
+              <span class="timeline-logo"><img src="assets/logos/srve.jpg" alt="" loading="lazy" width="256" height="256" /></span>
+              <span><strong>SRVE</strong><em>Advisor &amp; Investor</em></span>
+            </div>
+          </div>
+          <div class="timeline-group">
+            <p class="timeline-year">2020</p>
+            <div class="timeline-item">
+              <span class="timeline-logo"><img src="assets/logos/technicallyspeaking.jpg" alt="" loading="lazy" width="256" height="256" /></span>
+              <span><strong>Technically Speaking</strong><em>Host &amp; Creator</em></span>
+            </div>
+          </div>
+          <div class="timeline-group">
+            <p class="timeline-year">2017</p>
+            <div class="timeline-item">
+              <span class="timeline-logo"><img src="assets/logos/linkedin.jpg" alt="" loading="lazy" width="256" height="256" /></span>
+              <span><strong>LinkedIn</strong><em>Director, Product Design</em></span>
+            </div>
+          </div>
+          <div class="timeline-group">
+            <p class="timeline-year">2013</p>
+            <div class="timeline-item">
+              <span class="timeline-logo"><img src="assets/logos/zendesk.jpg" alt="" loading="lazy" width="256" height="256" /></span>
+              <span><strong>Base CRM</strong><em>Manager, UX Design</em></span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ── Select work (parallax header — pins, then case studies scroll over it) ── -->
+    <div class="phead-wrap">
+      <div class="phead container">
+        <div data-phead>
+          <div class="section-head head-display head-gt">
+            <h2>Select work</h2>
+          </div>
+          <p class="prose head-sub">A few case studies in design leadership and the products I've built. The problems, the bets, and what shipped.</p>
+        </div>
+      </div>
+      <div class="phead-body">
+
+    <!-- ── Leadership ── -->
+    <section class="container section" id="leadership">
+      <div class="card-grid">
+        <a class="card" href="#cs=leadcraft" data-cs="leadcraft">
+          <div class="card-media"><img src="assets/case_studies/cs-marketing.jpg" alt="" loading="lazy" width="3200" height="1861" /></div>
+          <div class="card-body">
+            <p class="eyebrow">LinkedIn</p>
+            <h3>Building a Surface for Growth</h3>
+            <p class="meta">A self-serve mandate became the business case for a new Campaign Manager surface.</p>
+          </div>
+        </a>
+        <a class="card" href="#cs=pods" data-cs="pods">
+          <div class="card-media"><img src="assets/case_studies/pods/hero.webp" alt="" loading="lazy" width="1200" height="750" /></div>
+          <div class="card-body">
+            <p class="eyebrow">LinkedIn</p>
+            <h3>Pods Over Silos: Restructuring to Build Faster</h3>
+            <p class="meta">99+ quarterly requests and morale at a low. Restructured into pods to ship the AI roadmap.</p>
+          </div>
+        </a>
+        <a class="card" href="#cs=events" data-cs="events">
+          <div class="card-media"><img src="assets/case_studies/events/events_hero.webp" alt="" loading="lazy" width="1600" height="1000" /></div>
+          <div class="card-body">
+            <p class="eyebrow">LinkedIn</p>
+            <h3>B2B Events: Reviving a Venture Bet Through Storytelling</h3>
+            <p class="meta">A low-trust events bet, reframed as a B2B marketplace and funded off a $100M+ pilot.</p>
+          </div>
+        </a>
+        <a class="card" href="#cs=base" data-cs="base">
+          <div class="card-media"><img src="assets/case_studies/base_crm/base_hero_case.webp" alt="" loading="lazy" width="1600" height="1000" /></div>
+          <div class="card-body">
+            <p class="eyebrow">Base CRM → Zendesk</p>
+            <h3>Base CRM: Building the Design Organization</h3>
+            <p class="meta">One of four designers in Chicago to the only one who moved, building the org, system, and culture.</p>
+          </div>
+        </a>
+        <!-- Projects continue in the same stack -->
+        <a class="card" href="#cs=video-recorder" data-cs="video-recorder">
+          <div class="card-media"><img src="assets/case_studies/dualcreatorcam/dualhero.webp" alt="" loading="lazy" width="1600" height="1000" /></div>
+          <div class="card-body">
+            <p class="eyebrow">0&nbsp;→&nbsp;1 / iOS app</p>
+            <h3>Dual Creator Cam: One Tap, Two Finished Videos</h3>
+            <p class="meta">A vertical and a horizontal cut from a single take, no reshoot.</p>
+          </div>
+        </a>
+        <!-- Holiday case study hidden for now — pending more revisions. Un-comment to restore.
+        <a class="card" href="#cs=holiday" data-cs="holiday">
+          <div class="card-media"><img src="assets/case_studies/holiday/holiday_hero.webp" alt="" loading="lazy" width="1600" height="930" /></div>
+          <div class="card-body">
+            <p class="eyebrow">0&nbsp;→&nbsp;1 / Built product</p>
+            <h3>How Holiday Got Built: A Process Case Study</h3>
+            <p class="meta">A trip-planning platform for travel agents, built solo in a couple of months.</p>
+          </div>
+        </a>
+        -->
+      </div>
+    </section>
+
+      </div><!-- /.phead-body -->
+    </div><!-- /.phead-wrap -->
+
+    <!-- ── LeadCraft (product — launching soon) ── -->
+    <section class="container section leadcraft-section" aria-label="LeadCraft" data-reveal-up>
+      <div class="section-head head-display head-gt">
+        <p class="eyebrow">Now building</p>
+        <h2>LeadCraft</h2>
+      </div>
+      <p class="prose head-sub">A platform for design leaders navigating an era where everything, including how we work with AI, is changing. Frameworks, rituals, and real stories for growing your team and yourself.</p>
+      <div class="cta-actions">
+        <button class="btn btn-primary" type="button" disabled aria-disabled="true">Coming soon<svg class="btn-ext-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></button>
+      </div>
+    </section>
+
+    <!-- ── Podcast (guest wall behind centered copy) ── -->
+    <section class="podcast section" aria-label="Podcast">
+      <div class="podcast-guests" data-podcast-guests aria-hidden="true">
+        <div class="podcast-row" data-px="-120">
+          <span class="podcast-guest"><img src="assets/pod-grid/pod-image1.jpg" alt="" loading="lazy" width="176" height="176"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image2.jpg" alt="" loading="lazy" width="176" height="176"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image3.jpg" alt="" loading="lazy" width="176" height="176"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image4.jpg" alt="" loading="lazy" width="176" height="176"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image5.jpg" alt="" loading="lazy" width="1080" height="1080"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image6.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image7.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image8.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image9.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image10.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image12.jpg" alt="" loading="lazy" width="1080" height="1080"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image13.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image14.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image1.jpg" alt="" loading="lazy" width="176" height="176"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image2.jpg" alt="" loading="lazy" width="176" height="176"></span>
+        </div>
+        <div class="podcast-row" data-px="70">
+          <span class="podcast-guest"><img src="assets/pod-grid/pod-image6.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image7.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image8.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image9.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image10.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image12.jpg" alt="" loading="lazy" width="1080" height="1080"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image13.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image14.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image1.jpg" alt="" loading="lazy" width="176" height="176"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image2.jpg" alt="" loading="lazy" width="176" height="176"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image3.jpg" alt="" loading="lazy" width="176" height="176"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image4.jpg" alt="" loading="lazy" width="176" height="176"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image5.jpg" alt="" loading="lazy" width="1080" height="1080"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image6.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image7.jpg" alt="" loading="lazy" width="2160" height="2160"></span>
+        </div>
+        <div class="podcast-row" data-px="-60">
+          <span class="podcast-guest"><img src="assets/pod-grid/pod-image10.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image12.jpg" alt="" loading="lazy" width="1080" height="1080"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image13.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image14.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image1.jpg" alt="" loading="lazy" width="176" height="176"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image2.jpg" alt="" loading="lazy" width="176" height="176"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image3.jpg" alt="" loading="lazy" width="176" height="176"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image4.jpg" alt="" loading="lazy" width="176" height="176"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image5.jpg" alt="" loading="lazy" width="1080" height="1080"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image6.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image7.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image8.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image9.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image10.jpg" alt="" loading="lazy" width="2160" height="2160"></span><span class="podcast-guest"><img src="assets/pod-grid/pod-image12.jpg" alt="" loading="lazy" width="1080" height="1080"></span>
+        </div>
+      </div>
+      <div class="podcast-overlay">
+        <div class="section-head head-display head-gt">
+          <h2>Podcast</h2>
+        </div>
+        <p class="podcast-laurel">
+          <svg class="laurel-branch" viewBox="0 0 26 56" aria-hidden="true">
+            <defs><path id="lfA" d="M0 0 Q3.4 -4 0 -9.5 Q-3.4 -4 0 0"/></defs>
+            <path d="M21 54 Q 8 42 9 24 Q 9.6 12 16 2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <g fill="currentColor">
+              <use href="#lfA" transform="translate(19.5 51) rotate(-55)"/>
+              <use href="#lfA" transform="translate(15 45) rotate(35)"/>
+              <use href="#lfA" transform="translate(11.5 38) rotate(-60)"/>
+              <use href="#lfA" transform="translate(9.6 30) rotate(25)"/>
+              <use href="#lfA" transform="translate(9.2 22) rotate(-65)"/>
+              <use href="#lfA" transform="translate(10.3 14.5) rotate(15)"/>
+              <use href="#lfA" transform="translate(12.8 8) rotate(-50)"/>
+              <use href="#lfA" transform="translate(16 3) rotate(-5)"/>
+            </g>
+          </svg>
+          <span>40k+ listens &#183; 100+ countries &#183; 5-star rated</span>
+          <svg class="laurel-branch laurel-branch--r" viewBox="0 0 26 56" aria-hidden="true">
+            <defs><path id="lfB" d="M0 0 Q3.4 -4 0 -9.5 Q-3.4 -4 0 0"/></defs>
+            <path d="M21 54 Q 8 42 9 24 Q 9.6 12 16 2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <g fill="currentColor">
+              <use href="#lfB" transform="translate(19.5 51) rotate(-55)"/>
+              <use href="#lfB" transform="translate(15 45) rotate(35)"/>
+              <use href="#lfB" transform="translate(11.5 38) rotate(-60)"/>
+              <use href="#lfB" transform="translate(9.6 30) rotate(25)"/>
+              <use href="#lfB" transform="translate(9.2 22) rotate(-65)"/>
+              <use href="#lfB" transform="translate(10.3 14.5) rotate(15)"/>
+              <use href="#lfB" transform="translate(12.8 8) rotate(-50)"/>
+              <use href="#lfB" transform="translate(16 3) rotate(-5)"/>
+            </g>
+          </svg>
+        </p>
+        <p class="prose head-sub">Technically Speaking: candid conversations with designers, builders, and leaders on craft, careers, and the human side of building products and teams.</p>
+        <a class="btn btn-primary podcast-cta" href="https://technicallyspeakinghw.com" target="_blank" rel="noopener">Listen now<svg class="btn-ext-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+      </div>
+    </section>
+
+    <!-- ── Community (talks · writing · events — parallax header) ── -->
+    <section class="container section" data-reveal-up>
+      <div class="phead-wrap">
+        <div class="phead">
+          <div data-phead>
+            <div class="section-head head-display head-gt">
+              <h2>Community</h2>
+            </div>
+            <p class="prose head-sub">I speak at conferences around the world about facilitation, design leadership, building teams through change, and AI readiness. My talks draw from real stories, the messy, imperfect, human side of leading design organizations.</p>
+          </div>
+        </div>
+        <div class="phead-body">
+      <div class="community-strip" aria-label="Photos from community events">
+        <div class="community-track">
+          <figure class="community-photo">
+            <img src="assets/community/community-1.jpeg" alt="Coffee meetup in Tokyo, JP" loading="lazy" width="2048" height="1365" />
+            <figcaption>Coffee meetup in Tokyo, JP</figcaption>
+          </figure>
+          <figure class="community-photo">
+            <img src="assets/community/community-2.jpeg" alt="Team outing in San Francisco" loading="lazy" width="2048" height="1536" />
+            <figcaption>Team outing in San Francisco</figcaption>
+          </figure>
+          <figure class="community-photo">
+            <img src="assets/community/community-3.jpg" alt="Smashing Conference in Freiburg, Germany" loading="lazy" width="3551" height="3551" />
+            <figcaption>Smashing Conference in Freiburg, Germany</figcaption>
+          </figure>
+          <figure class="community-photo">
+            <img src="assets/community/community-4.webp" alt="Meetup in Brooklyn, New York" loading="lazy" width="2048" height="1365" />
+            <figcaption>Meetup in Brooklyn, New York</figcaption>
+          </figure>
+          <figure class="community-photo">
+            <img src="assets/community/community-5.jpg" alt="Running group in Freiburg" loading="lazy" width="826" height="620" />
+            <figcaption>Running group in Freiburg</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="community-groups">
+        <div class="cg-group">
+          <p class="cg-label">Talks</p>
+          <div class="cg-list">
+            <p class="cg-item"><a href="https://www.youtube.com/watch?v=NFGZcBo_AWU" target="_blank" rel="noopener">Figma Config 2022 — "The Design MC: Facilitating Safe and Inclusive Environments for Feedback"</a></p>
+            <p class="cg-item"><span>Design Matters Tokyo 2025 — "How AI is Reshaping Design Leadership and Culture"</span></p>
+          </div>
+        </div>
+        <div class="cg-group">
+          <p class="cg-label">Events</p>
+          <div class="cg-list">
+            <p class="cg-item"><span>SmashingConf New York 2022</span></p>
+            <p class="cg-item"><span>SmashingConf Freiburg 2023</span></p>
+            <p class="cg-item"><span>ConveyUX 2025</span></p>
+          </div>
+        </div>
+        <div class="cg-group">
+          <p class="cg-label">Writing</p>
+          <div class="cg-list">
+            <p class="cg-item"><a href="https://technicallyspeakinghw.substack.com/p/leadership-habits-that-work-for-ics" target="_blank" rel="noopener">Leadership habits that work for ICs and managers</a></p>
+            <p class="cg-item"><a href="https://technicallyspeakinghw.substack.com/p/green-flags-over-red-flags-navigating" target="_blank" rel="noopener">Green flags over red flags: navigating today's brutal job market</a></p>
+            <p class="cg-item"><a href="https://technicallyspeakinghw.substack.com/p/issue-17-transparency-is-a-multiplier" target="_blank" rel="noopener">Issue 17: Transparency is a multiplier</a></p>
+            <p class="cg-item"><a href="https://technicallyspeakinghw.substack.com/p/from-tokyo-life-update-lessons-and" target="_blank" rel="noopener">Issue 16: From Tokyo — life update, lessons, and what's next</a></p>
+          </div>
+        </div>
+        <div class="cg-group">
+          <p class="cg-label">Press &amp; Podcasts</p>
+          <div class="cg-list">
+            <p class="cg-item"><a href="https://amplitude.com/blog/product-50-winner-harrison-wheeler" target="_blank" rel="noopener">Amplitude Product 50: The Most Innovative People in Product</a></p>
+            <p class="cg-item"><a href="https://ooux.com/resources/episode022" target="_blank" rel="noopener">The Object-Oriented UX — Introducing object-oriented thinking to LinkedIn</a></p>
+            <p class="cg-item"><a href="https://podcast.userinterviews.com/episodes/52-the-missing-ingredient-how-storytelling-can-make-user-research-more-impactful-with-harrison-wheeler-ux-design-manager-at-linkedin" target="_blank" rel="noopener">Awkward Silences — How Storytelling Can Make User Research More Impactful</a></p>
+          </div>
+        </div>
+      </div>
+        </div><!-- /.phead-body -->
+      </div><!-- /.phead-wrap -->
+    </section>
+
+    <!-- ── CTA ── -->
+    <section class="container section cta-section">
+      <div class="section-head head-display head-gt">
+        <h2>Let's work together</h2>
+      </div>
+      <p class="head-sub" data-reveal-up>I'm available for full-time roles, speaking engagements, leadership coaching, and advisory work with product and design teams.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="mailto:hello@harrisonwheeler.com">Get in touch</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/hmwheeler" target="_blank" rel="noopener">Connect on LinkedIn<svg class="btn-ext-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <small>© <span data-year>2026</span> Harrison Wheeler. Dedicated to Mom ♥</small>
+      <!-- Social: follower counts are hardcoded — update by hand when they drift. -->
+      <nav class="footer-nav" aria-label="Social media">
+        <a href="https://www.linkedin.com/in/hmwheeler" aria-label="LinkedIn — 11.8K followers" target="_blank" rel="noopener"><img src="assets/social/linkedin.png" alt="" width="20" height="20" /><span class="footer-count" aria-hidden="true">11.8K</span></a>
+        <a href="https://medium.com/@hmwheele" aria-label="Medium — 1.7K followers" target="_blank" rel="noopener"><img src="assets/social/medium.svg" alt="" width="20" height="20" /><span class="footer-count" aria-hidden="true">1.7K</span></a>
+        <a href="https://technicallyspeakinghw.substack.com" aria-label="Substack — 1.3K subscribers" target="_blank" rel="noopener"><img src="assets/social/substack.svg" alt="" width="20" height="20" /><span class="footer-count" aria-hidden="true">1.3K</span></a>
+        <a href="https://www.youtube.com/@TechnicallySpeakingHW" aria-label="YouTube — 869 subscribers" target="_blank" rel="noopener"><img src="assets/social/youtube.svg" alt="" width="20" height="20" /><span class="footer-count" aria-hidden="true">869</span></a>
+        <a href="https://www.threads.com/@hmwheele" aria-label="Threads — 811 followers" target="_blank" rel="noopener"><img src="assets/social/threads.svg" alt="" width="20" height="20" /><span class="footer-count" aria-hidden="true">811</span></a>
+        <a href="https://github.com/hmwheele/" aria-label="GitHub — 1.4K commits" target="_blank" rel="noopener"><img src="assets/social/github.svg" alt="" width="20" height="20" /><span class="footer-count" aria-hidden="true">1.4K<span class="footer-count-word"> Commits</span></span></a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- ── Newsletter popover (home only) ── -->
+  <div class="subpop" data-subpop>
+    <div class="subpop-panel" id="subpop-panel" role="dialog" aria-label="Subscribe to email updates" aria-modal="false">
+      <button class="subpop-close" type="button" aria-label="Close" data-subpop-close>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <p class="subpop-eyebrow">Let's keep in touch</p>
+      <p class="subpop-copy">Occasional notes on design, leadership, and building, straight to your inbox.</p>
+      <form class="subpop-form" data-subpop-form novalidate>
+        <input class="subpop-input" type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Email address" />
+        <button class="subpop-submit" type="submit">Subscribe<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </form>
+      <p class="subpop-msg" data-subpop-msg hidden></p>
+    </div>
+  </div>
+
+  <script src="assets/js/images.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/case-studies.js"></script>
+  <script src="assets/js/overlay.js"></script>
+  <script src="assets/js/deck.js"></script>
+</body>
+</html>

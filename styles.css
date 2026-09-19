@@ -1,0 +1,2005 @@
+/* =====================================================================
+   Harrison Wheeler — Portfolio
+   Shared stylesheet. Dark theme site + light theme case-study overlay.
+   Design tokens align with the Figma file (lavender accent on near-black).
+   ===================================================================== */
+
+/* ── GT America (brand typeface) ─────────────────────────────────── */
+@font-face {
+  font-family: 'GT America';
+  src: url('../fonts/GT-America-Standard-Regular.otf') format('opentype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'GT America';
+  src: url('../fonts/GT-America-Standard-Regular-Italic.otf') format('opentype');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'GT America';
+  src: url('../fonts/GT-America-Standard-Medium.otf') format('opentype');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'GT America';
+  src: url('../fonts/GT-America-Standard-Bold.otf') format('opentype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+/* ── Neudron (display — hero name) ── */
+@font-face {
+  font-family: 'Neudron';
+  src: url('../fonts/403-neudron-regular.woff2') format('woff2');
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+/* ── Reckless (variable, serif display) — wavy marquee headline ── */
+@font-face {
+  font-family: 'Reckless';
+  src: url('../fonts/RecklessCollectionVF-TRIAL.ttf') format('truetype-variations');
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+
+/* ── Reset & Base ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Surfaces */
+  --bg:            #0d0c11;
+  --surface:       #16151c;
+  --surface-2:     #1f1d26;
+  --border:        #2a2833;
+  --border-soft:   #211f29;
+
+  /* Text */
+  --text:          #ece9f1;
+  --text-muted:    #a39fb0;
+  --text-dim:      #75717f;
+
+  /* Accent (lavender, from Figma / M3 primary) */
+  --primary:       #d0bcff;
+  --primary-hover: #e3d6ff;
+  --on-primary:    #381e72;
+  --light-pink:    #ffd8e4;
+  --mint:          #b9f2c8;
+
+  /* Signature text gradients (pair with a solid --mint / --light-pink color
+     line as the fallback for browsers without background-clip: text) */
+  --grad-mint:       linear-gradient(to top, #e4fbea 0%, #cef6d9 20%, var(--mint) 48%);
+  --grad-pink:       linear-gradient(to top, #fff4f8 0%, #ffe7f0 20%, var(--light-pink) 48%);
+  --grad-mint-white: linear-gradient(to top, var(--mint) 0%, #d9f8e3 42%, #ffffff 100%);
+
+  /* Type — sitewide fallback rule: sans-serif stacks fall back to Helvetica,
+     serif stacks fall back to Georgia (never to another webfont). */
+  --font:    'GT America', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --mono:    'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --display: 'Neudron', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --serif:   'Merriweather', Georgia, serif;
+  /* Merriweather ships 300/400/700 only — 300 is as light as it goes. */
+  --serif-light: 300;
+
+  /* Layout */
+  --max:        1320px;
+  --gap:        120px;
+  --radius:     16px;
+  --radius-sm:  10px;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;   /* clip (not hidden) so it doesn't break position: sticky */
+}
+
+/* Subtle grid background — hero only (see .hero::before) */
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+ul { list-style: none; }
+
+.container { max-width: var(--max); margin: 0 auto; padding-inline: 32px; }
+
+/* Small uppercase mono label used above section headings */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 18px;
+}
+
+/* ── Buttons ────────────────────────────────────────────────────── */
+/* One size + shape for every text button; only the fill/ghost colors differ. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 1.05rem;
+  font-weight: 500;
+  padding: 14px 28px;
+  border-radius: 100px;
+  border: 0.5px solid transparent;
+  cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s, transform .15s;
+  white-space: nowrap;
+}
+/* Filled (primary) variant */
+.btn-primary, .btn-hero { background: var(--primary); color: var(--on-primary); border-color: transparent; }
+.btn-primary:hover, .btn-hero:hover { background: var(--primary-hover); transform: translateY(-1px); }
+/* Ghost (secondary) variant — frosted glass */
+.btn-ghost, .btn-hero-ghost {
+  background: rgba(255, 255, 255, .08);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+  color: var(--text); border-color: rgba(255, 255, 255, .18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12);
+}
+.btn-ghost:hover, .btn-hero-ghost:hover {
+  background: rgba(255, 255, 255, .14);
+  border-color: var(--primary); color: var(--primary); transform: translateY(-1px);
+}
+/* Disabled / "coming soon" CTA — unclickable, visually muted */
+.btn:disabled, .btn[disabled] { opacity: .5; cursor: not-allowed; }
+.btn:disabled:hover, .btn[disabled]:hover { background: var(--primary); transform: none; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+
+/* ── Nav ────────────────────────────────────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: transparent;
+  transition: opacity .5s ease;
+}
+/* Home intro: while the HW logo fades from white to dark, lock the viewport and
+   keep the nav hidden. The lock class (on <html>) is added by an inline script in
+   index.html and removed after the logo has darkened (~1.5s). */
+html.hero-intro-lock, html.hero-intro-lock body { overflow: hidden; }
+html.hero-intro-lock .nav { opacity: 0; pointer-events: none; }
+/* Intro loading bar — sweeps left→right across the top as the HW logo tones in,
+   then fades out as the intro ends (~1.5s). */
+.hero-loadbar {
+  position: fixed; top: 0; left: 0; z-index: 9999;
+  width: 100%; height: 3px; pointer-events: none;
+  transform: scaleX(0); transform-origin: left center;
+  background: linear-gradient(90deg, #ffe9f0, var(--light-pink), #ff9ec4);
+  opacity: 0;   /* only appears while the intro runs (see below) */
+}
+/* Sweep only during the initial hero/logo intro. The intro's inline head script
+   adds .hero-intro-lock on genuine home loads; on bfcache/back-navigation (or
+   any load where the intro doesn't run) the class is absent, so the bar stays
+   hidden. Finishes just before the 1.5s lock is released, so no snap. */
+html.hero-intro-lock .hero-loadbar { animation: hero-load 1.4s ease forwards; }
+@keyframes hero-load {
+  0%   { transform: scaleX(0); opacity: 1; }
+  80%  { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .hero-loadbar { display: none; } }
+/* (Removed the full-width blurred header backdrop — the floating nav pill
+   is the only chrome at the top now.) */
+.nav-inner {
+  position: relative;
+  max-width: var(--max); margin: 0 auto; padding: 24px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-weight: 700; letter-spacing: -.01em; font-size: .98rem; color: var(--text);
+}
+.nav-logo-img { width: 24px; height: auto; display: block; transform-origin: left top; transition: transform .3s ease, opacity .25s ease, visibility .25s ease; }
+.nav-logo-name { transition: opacity .25s ease, visibility .25s ease; }
+/* Home: the hero already shows the name large. At the top, keep just the mark and
+   hide the name; once scrolled past the hero, shrink the mark and reveal the name.
+   The mark is enlarged with a transform (no layout reflow) so the nav links never
+   move and the position never snaps — scale 1.75 ≈ 42px, dropped 8px to sit 24px
+   from the top. */
+body.home:not(.show-brand) .nav-logo-img { opacity: 0; visibility: hidden; }
+body.home:not(.show-brand) .nav-logo-name { opacity: 0; visibility: hidden; }
+.nav-links { display: flex; gap: 30px; align-items: center; }
+/* desktop: links centered to the page (mobile overlay overrides this) */
+@media (min-width: 861px) {
+  .nav-links {
+    position: absolute; left: 50%; top: 16px; transform: translateX(-50%);
+    background: rgba(13, 12, 17, .6);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 999px; padding: 14px 32px;
+  }
+}
+.nav-links a { font-family: var(--mono); font-size: .95rem; font-weight: 400; letter-spacing: .02em; color: #fff; transition: color .2s; }
+.nav-links a:hover { color: var(--primary); }
+.nav-links a.active { color: var(--primary); }
+.nav-links a.nav-ext { display: inline-flex; align-items: center; gap: 5px; }
+.nav-ext-icon { width: 11px; height: 11px; opacity: .6; flex: 0 0 auto; }
+.nav-links a.nav-ext:hover .nav-ext-icon { opacity: 1; }
+
+/* Mobile menu toggle */
+.nav-toggle {
+  display: none; background: none; border: 0; cursor: pointer;
+  width: 40px; height: 40px; padding: 8px; color: var(--text);
+}
+.nav-toggle span { display: block; height: 2px; background: currentColor; border-radius: 2px; transition: transform .25s, opacity .25s; }
+.nav-toggle span + span { margin-top: 5px; }
+.nav.open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav.open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Sections ───────────────────────────────────────────────────── */
+.section { padding-block: var(--gap); }
+/* ── Podcast: centered copy over a wall of placeholder guest tiles ── */
+.podcast { position: relative; overflow: hidden; text-align: center; min-height: 480px; display: grid; place-items: center; }
+.podcast-guests {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  display: flex; flex-direction: column; justify-content: center; gap: 16px;
+  will-change: transform, opacity;
+  opacity: 0; transition: opacity .9s ease;
+}
+.podcast-guests.is-in { opacity: 1; }
+.podcast-row { display: flex; gap: 16px; justify-content: center; flex-wrap: nowrap; will-change: transform; }
+.podcast-guest { flex: 0 0 auto; width: clamp(84px, 9vw, 118px); aspect-ratio: 1 / 1; border-radius: 6px; background: var(--surface-2); overflow: hidden; }
+.podcast-guest img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Scrim so the centered copy stays readable over the tiles. */
+.podcast::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse 58% 72% at 50% 50%, var(--bg) 0%, var(--bg) 32%, rgba(13, 12, 17, .72) 58%, transparent 100%);
+}
+.podcast-overlay { position: relative; z-index: 2; max-width: 40em; margin: 0 auto; padding-inline: 24px; }
+.podcast-overlay .head-sub { margin: 16px auto 0; }
+.podcast-cta { margin-top: 28px; }
+/* Laurel credibility line under the Podcast title */
+.podcast-overlay .section-head { margin-bottom: 10px; }
+.podcast-laurel {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  margin: 0 auto;
+  font-family: var(--mono); font-size: .82rem; font-weight: 400;
+  letter-spacing: .01em; color: #eceae4; white-space: nowrap;
+}
+.podcast-laurel .laurel-branch { flex: 0 0 auto; width: 16px; height: 35px; opacity: .75; }
+.podcast-laurel .laurel-branch--r { transform: scaleX(-1); }
+@media (max-width: 560px) {
+  /* nowrap would set the badge's min-content wider than the phone screen,
+     and the overlay (a grid item) stretches to min-content — let it wrap. */
+  .podcast-laurel { gap: 8px; font-size: .7rem; white-space: normal; max-width: 100%; }
+  .podcast-laurel span { min-width: 0; max-width: 26ch; text-wrap: balance; }
+  .podcast-laurel .laurel-branch { width: 13px; height: 28px; }
+}
+@media (max-width: 860px) {
+  .podcast { min-height: 420px; }
+  .podcast-guests { gap: 12px; }
+  .podcast-row { gap: 12px; }
+  .podcast-guest { width: clamp(60px, 18vw, 96px); }
+}
+.section-head h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 800; letter-spacing: -.02em; }
+.section-head { margin-bottom: 40px; }
+
+/* ── Hero ───────────────────────────────────────────────────────── */
+.hero {
+  padding-top: 150px; padding-bottom: 60px; position: relative;
+  /* hero tint dissolves into the page bg — no hard edge */
+  background: linear-gradient(#131217 0%, #131217 55%, var(--bg) 100%);
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image:
+    linear-gradient(var(--border-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: linear-gradient(#000 60%, transparent 100%);
+          mask-image: linear-gradient(#000 60%, transparent 100%);
+  opacity: .5;
+  pointer-events: none;
+  /* slow, seamless leftward drift (one 64px tile per cycle) */
+  animation: hero-grid-pan 10s linear infinite;
+}
+@keyframes hero-grid-pan {
+  from { background-position: 0 0; }
+  to   { background-position: -40px 0; }
+}
+.hero > .container { position: relative; z-index: 2; }
+
+/* ── Hero variant: full-height portrait with page-centered content in front ── */
+.hero--stage {
+  position: relative; min-height: 100vh; padding: 0; overflow: hidden;
+  display: flex; align-items: flex-end; text-align: center;
+}
+/* Portrait fills the hero height, centered, running to the bottom (below the buttons) */
+.hero--stage .hero-bigimg {
+  position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+  height: 100%; width: auto; max-width: none; z-index: 1;
+  aspect-ratio: 1200 / 675;   /* reserve size before the webp loads (prevents a mobile reflow jump) */
+  object-fit: contain; object-position: bottom center;
+  filter: drop-shadow(0 20px 60px rgba(0, 0, 0, .45));
+}
+/* Marching-ants outline tracing the silhouette — positioned exactly over the portrait */
+.hero-contour {
+  position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+  height: 100%; width: auto; z-index: 2; pointer-events: none;
+  /* fade the outline out at the bottom so the image's straight crop edge doesn't show as a box */
+  -webkit-mask-image: linear-gradient(to bottom, #000 64%, transparent 84%);
+          mask-image: linear-gradient(to bottom, #000 64%, transparent 84%);
+}
+.hero-contour path {
+  fill: none; stroke: #fff; stroke-width: 1.6;
+  stroke-dasharray: 9 7; vector-effect: non-scaling-stroke;
+  animation: contour-march 0.7s linear infinite;
+}
+@keyframes contour-march { to { stroke-dashoffset: -16; } }
+@media (prefers-reduced-motion: reduce) { .hero-contour path { animation: none; } }
+
+/* On-load: portrait + contour drag in from the left to centre, a cursor "grabs" it */
+@keyframes hero-drag-in {
+  from { transform: translateX(calc(-50% - 46vw)); }
+  to   { transform: translateX(-50%); }
+}
+.hero--stage .hero-bigimg { animation: hero-drag-in 1.4s cubic-bezier(.22, 1, .36, 1) both; }
+/* contour drags in with the portrait, then fades out 1s after it settles */
+.hero-contour { animation: hero-drag-in 1.4s cubic-bezier(.22, 1, .36, 1) both, hero-contour-fade .6s ease 2.4s forwards; }
+@keyframes hero-contour-fade { to { opacity: 0; } }
+.hero-drag-cursor {
+  position: absolute; z-index: 5; left: 50%; top: 46%; pointer-events: none;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, .5));
+  animation: hero-cursor-in 1.4s cubic-bezier(.22, 1, .36, 1) both,
+             hero-cursor-out .4s ease 1.25s both;
+}
+@keyframes hero-cursor-in {
+  from { transform: translate(calc(-50% - 46vw), -50%); }
+  to   { transform: translate(-50%, -50%); }
+}
+@keyframes hero-cursor-out { to { opacity: 0; } }
+/* Load sequence: the HW logo arrives white, holds a beat, sinks to black —
+   and only then does the copy in front fade in. */
+.hero--stage .hero-logo-bg { animation: hero-logo-tone 1.4s ease .1s both; }
+@keyframes hero-logo-tone {
+  0%, 30% { filter: brightness(1); }
+  100%    { filter: brightness(0); }
+}
+/* Name, tagline + buttons stay hidden through the logo's white→dark beat, then
+   fade UP from the bottom once the logo has darkened (delay syncs with the
+   ~1.5s scroll-unlock). .intro-played (added on animationend in main.js) clears
+   the animation so the copy's scroll parallax (--plx-name) can take back over. */
+.hero-stage-content { animation: hero-content-rise .7s cubic-bezier(.22, 1, .36, 1) 1.5s both; }
+.hero-stage-content.intro-played { animation: none; }
+@keyframes hero-content-rise {
+  from { opacity: 0; transform: translateY(48px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero--stage .hero-bigimg, .hero-contour { animation: none; }
+  .hero-drag-cursor { display: none; }
+  .hero-stage-content { animation: none; }
+  .hero--stage .hero-logo-bg { animation: none; }
+}
+/* Content layered in front, centered to the page */
+.hero--stage { justify-content: center; }
+.hero-stage-content { position: relative; z-index: 3; width: 100%; text-align: center; padding-bottom: 7vh; container-type: inline-size; }
+/* the whole copy block (name, subtext, buttons) rises faster than the page on scroll */
+.hero--stage .hero-stage-content { transform: translateY(var(--plx-name, 0px)); will-change: transform; }
+
+.bigname-br { display: none; }
+
+/* HW logo — backdrop behind the hero copy (above the grid, below the text).
+   Centered to the viewport (top:50%) so it reads centered on mobile and web,
+   even though the copy sits lower. */
+.hero--stage .hero-logo-bg {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%) translateY(var(--plx-logo, 0px));
+  width: min(440px, 82vw); height: auto; z-index: 2; pointer-events: none;
+  filter: brightness(0);
+  /* base .85, fades out on scroll before it can collide with the next section's bg */
+  opacity: calc(.85 * var(--plx-fade, 1));
+  will-change: transform;
+}
+
+
+/* higher specificity so it beats the two-column .hero h1 / .hero p.lede rules */
+.hero--stage .hero-bigname {
+  font-family: var(--display);
+  text-transform: uppercase; font-synthesis: none;
+  margin: 0 0 22px; max-width: none; text-align: center;
+  font-size: clamp(3.6rem, 14.5vw, 11rem); /* fallback */
+  font-size: 19cqw; font-weight: 800;
+  line-height: .92; letter-spacing: -.01em;
+  /* stretch the glyphs taller without widening them */
+  transform: scaleY(1.5); transform-origin: bottom center;
+  /* white at the baseline fading up into the mint green */
+  color: var(--mint);   /* fallback for browsers without background-clip: text */
+  background: var(--grad-mint);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero--stage .hero-stage-content .lede { margin: 0 auto 28px; margin-left: auto; text-align: center; font-family: var(--serif); font-size: 32px; line-height: 1.25; font-weight: var(--serif-light); }
+.hero--stage .hero-actions { justify-content: center; }
+/* On phones the portrait is zoomed, so drop the content lower to clear the face */
+@media (max-width: 560px) {
+  /* Fill the hero to the *visible* viewport (dvh accounts for the mobile
+     browser toolbar) so the content box's bottom == the real bottom. */
+  .hero.hero--stage { align-items: stretch; padding-top: 0; min-height: 100vh; min-height: 100svh; }
+  .hero-stage-content {
+    min-height: 100vh; min-height: 100svh; box-sizing: border-box;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding-bottom: 172px;   /* reserve room for the pinned buttons */
+  }
+  .bigname-br { display: inline; }
+  /* two stacked lines on phones — pull them closer together */
+  .hero--stage .hero-bigname { font-size: 38cqw; line-height: .82; }
+  .hero--stage .hero-stage-content .lede { font-size: 18px; margin-bottom: 20px; }
+  /* Center the intro logo on the *physical* screen: the layout viewport
+     (100svh) stops above Safari's bottom URL bar, so 50% of the hero reads
+     high on load. 50lvh spans the full screen and, unlike dvh, is static —
+     no jump when the toolbar collapses on scroll. */
+  .hero--stage .hero-logo-bg { top: 50lvh; }
+  /* Slightly smaller, vertically centered portrait on phones */
+  .hero--stage .hero-bigimg { height: 88%; bottom: 6%; }
+  .hero-contour { height: 88%; bottom: 6%; }
+  /* Dock the action buttons to the bottom of the visible viewport, with side padding */
+  .hero--stage .hero-actions {
+    position: absolute; left: 20px; right: 20px; margin: 0;
+    bottom: max(16px, env(safe-area-inset-bottom));
+  }
+}
+
+.hero-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 48px; align-items: center; }
+.hero h1 {
+  text-align: left;
+  font-size: clamp(3.5rem, calc(12vw - 16px), 8rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -.03em;
+  margin-bottom: 24px;
+  max-width: 8ch;   /* forces "Harrison Wheeler" onto two lines */
+}
+.hero p.lede { font-family: var(--font); font-size: 30px; font-weight: 700; line-height: 1.5; color: var(--light-pink); max-width: 26em; margin-bottom: 30px; margin-left: 48px; }
+.hero-photo { position: relative; }
+.hero-photo img {
+  width: 100%; height: auto; display: block;
+  border-radius: var(--radius); border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+/* White pill — text editable in assets/hello.md */
+.hello-pill {
+  position: absolute;
+  top: -12px;
+  right: -16px;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 24px;
+  background: #fff;
+  color: #141218;
+  border-radius: 100px;
+  font-family: var(--font);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  transform: rotate(3deg);
+  z-index: 5;
+  transition: transform 0.4s ease;
+}
+.hero-photo:hover .hello-pill { transform: rotate(-2deg) scale(1.04); }
+/* Circular rotating text badge */
+.badge-circle {
+  position: absolute; left: -44px; bottom: -44px; z-index: 2;
+  width: 160px; height: 160px; pointer-events: none;
+}
+.badge-circle svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* Text ring spins one way; the starburst counter-rotates at the same rate. */
+.badge-ring  { animation: badge-spin 28s linear infinite; }
+.badge-burst { animation: badge-spin 28s linear infinite reverse; }
+.badge-burst line { stroke-width: 0.5; }   /* stroke color comes from the radial gradient on the group */
+.badge-circle text {
+  fill: #EFB8C8;
+  font-size: 6.5px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  font-family: var(--mono);
+  font-style: normal;
+}
+@keyframes badge-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .badge-circle svg { animation: none; } }
+
+/* Home hero content fades up on load (matches the About hero — story-hero-up keyframes) */
+.hero-grid > div:first-child > *,
+.hero-photo {
+  animation: story-hero-up .75s cubic-bezier(.22, 1, .36, 1) both;
+}
+.hero-grid > div:first-child > *:nth-child(1) { animation-delay: .06s; }
+.hero-grid > div:first-child > *:nth-child(2) { animation-delay: .16s; }
+.hero-grid > div:first-child > *:nth-child(3) { animation-delay: .26s; }
+.hero-photo { animation-delay: .55s; }   /* image comes in after the left-side text */
+/* The hero "Get in touch" button slides in from the left instead of up */
+.hero-grid > div:first-child > .hero-actions { animation-name: hero-cta-left; }
+@keyframes hero-cta-left {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Curved marquee headline ────────────────────────────────────── */
+.arc { padding-block: 40px 80px; overflow: hidden; }
+.arc svg { width: 100%; height: auto; display: block; }
+.arc text { fill: var(--light-pink); font-family: 'Reckless', Georgia, serif; font-weight: 400; letter-spacing: .01em; }
+
+/* ── Belief statement ───────────────────────────────────────────── */
+.belief p.big {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem); font-weight: var(--serif-light); letter-spacing: -.02em;
+  line-height: 1.4; max-width: 22em; margin-bottom: 28px;
+}
+.belief p.body { font-family: var(--serif); font-weight: var(--serif-light); line-height: 1.6; color: var(--text-muted); max-width: 40em; margin-bottom: 16px; }
+.belief-more { margin-top: 14px; }
+
+/* Career timeline beside the belief statement.
+   Left column pins while the timeline scrolls past it. */
+.belief-grid { display: grid; grid-template-columns: 1.3fr .7fr; gap: 80px; align-items: start; }
+.belief-text { position: sticky; top: 120px; text-align: left; }
+/* Image placeholder above the timeline (right column) */
+.timeline-photo {
+  position: relative;   /* anchors the rotating badge at its corner */
+  width: 100%; aspect-ratio: 4 / 5; border-radius: 8px;
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, #2a2833, #1f1d26);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-dim); font-family: var(--mono); font-size: .8rem;
+  letter-spacing: .12em; text-transform: uppercase;
+}
+/* Profile photo fills the box (clipped to the rounded corners) while the
+   overhanging badge stays a sibling so it isn't clipped. */
+.timeline-photo-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+.timeline { display: flex; flex-direction: column; gap: 96px; padding-block: 24px; }
+.timeline-group {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity .45s cubic-bezier(.22, 1, .36, 1), transform .45s cubic-bezier(.22, 1, .36, 1);
+}
+.timeline-group.visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .timeline-group { opacity: 1; transform: none; transition: none; }
+}
+.timeline-year {
+  font-family: var(--display); font-synthesis: none;
+  font-size: 1.8rem; font-weight: 800; letter-spacing: -.01em;
+  color: var(--primary); margin-bottom: 20px;
+}
+.timeline-item {
+  display: inline-flex; align-items: center; gap: 16px; text-align: left;
+}
+.timeline-logo {
+  width: 56px; height: 56px; flex: 0 0 auto; overflow: hidden;
+  border-radius: var(--radius-sm); background: var(--surface);
+  border: 1px solid var(--border);
+}
+.timeline-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.timeline-item strong { display: block; font-size: .95rem; font-weight: 700; }
+.timeline-item em { display: block; font-style: normal; font-size: .9rem; color: var(--text-muted); }
+
+/* ── Card grids ─────────────────────────────────────────────────── */
+.card-grid { display: flex; flex-direction: column; gap: 0; }
+/* Leadership + Projects are two groups under one "Select work" header — keep them tight */
+#leadership { padding-bottom: 0; }
+.card {
+  position: relative; display: grid;
+  grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(32px, 5vw, 72px);
+  margin: 0;   /* flush top-to-bottom, full container width */
+  /* Folder-organizer outline framing each case study — drawn on a masked
+     ::before so every folder's lines fade to transparency toward the bottom. */
+  padding: clamp(28px, 3.5vw, 52px);
+  border: none;
+  border-radius: 24px 24px 0 0;
+  background: var(--bg); overflow: visible;   /* opaque — cards cover the pinned header text */
+  transition: transform .2s, border-color .2s;
+  cursor: pointer;
+  will-change: transform;
+}
+/* Every folder's outline fades to transparency toward the bottom. Drawn on a
+   masked pseudo-element (border-image can't round corners). */
+.card::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, .16); border-bottom: none;
+  border-radius: 24px 24px 0 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 35%, transparent 95%);
+          mask-image: linear-gradient(to bottom, #000 35%, transparent 95%);
+  transition: border-color .2s;
+}
+.card:hover::before { border-color: rgba(255, 255, 255, .28); }
+/* Alternating editorial layout: odd rows put the title on the left + image on
+   the right; even rows flip to image-left, title-right. */
+.card:nth-child(odd) .card-media { order: 2; }
+.card:nth-child(odd) .card-body  { order: 1; }
+.card:hover { transform: translateY(-3px); }
+.card:hover h3 { background-position: 0% 0%; }   /* fill the title to all light pink */
+/* Sticky deck (all sizes): each folder pins and the next one scrolls up over
+   it. --stick-top is set per card in main.js so folders taller than the
+   viewport (mobile) scroll fully into view before pinning. */
+.card { position: sticky; top: var(--stick-top, 96px); }
+.card-media { aspect-ratio: 16/10; background: linear-gradient(135deg, #2a2833, #3a3747); position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,.12); box-shadow: 0 8px 24px rgba(0,0,0,.4); }
+.card-media img { width: 100%; height: 100%; object-fit: cover; }
+.card-media--placeholder { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #3a2a3f, #2a3347 55%, #1f2a3a); }
+.card-media-tag { font-family: var(--mono); font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--light-pink); border: 1px solid rgba(255,216,228,.35); border-radius: 999px; padding: 7px 16px; }
+.card-body { padding: 16px 0 8px; text-align: left; }
+.card .eyebrow { display: none; }
+.card h3 {
+  font-family: var(--display); font-synthesis: none;
+  text-transform: uppercase; font-size: clamp(40px, 6.5vw, 88px); font-weight: 700;
+  letter-spacing: -.01em; line-height: .92; margin-bottom: 12px;
+  /* Pink→white gradient text; on hover it fills to all light pink. A double-height
+     gradient (pink top half, white bottom half) is slid via background-position,
+     which — unlike the gradient itself — is animatable. */
+  color: var(--light-pink);   /* fallback for no background-clip: text */
+  background: linear-gradient(to bottom, var(--light-pink) 0%, var(--light-pink) 50%, #ffffff 62%, #ffffff 100%);
+  background-size: 100% 200%; background-position: 0% 100%;   /* default: pink→white */
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position .6s ease;
+}
+.card .meta { font-family: var(--serif); font-weight: var(--serif-light); font-size: 20px; line-height: 1.5; color: #fff; }
+.news-all { color: var(--primary); font-weight: 600; text-decoration: none; }
+.news-all:hover { text-decoration: underline; }
+
+/* ── Community / events ─────────────────────────────────────────── */
+/* Full-bleed photo strip that drifts horizontally as the page scrolls */
+/* Full-bleed photo strip that auto-scrolls left forever (marquee) */
+.community-strip {
+  width: 100vw; margin-left: calc(50% - 50vw); margin-bottom: 36px;
+  overflow: hidden;
+}
+/* main.js wraps the track in .community-marquee and appends a clone for a seamless loop */
+.community-marquee { display: flex; width: max-content; animation: comm-marquee 70s linear infinite; }
+@keyframes comm-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .community-marquee { animation: none; }
+  .community-strip { overflow-x: auto; }
+}
+
+/* Big centered display-serif header (Community, Select work, …) */
+.section-head.head-display { text-align: center; }
+.section-head.head-display h2 {
+  font-family: 'Reckless', Georgia, serif; font-weight: 400;
+  font-size: clamp(3rem, 7.5vw, 5.25rem); line-height: 1;
+  letter-spacing: -.01em; color: var(--text); margin: 0;
+}
+.section-head.head-display.head-gt h2 {
+  font-family: var(--display);
+  font-weight: 400; font-synthesis: none; letter-spacing: -.01em;
+  text-transform: capitalize;
+  font-size: clamp(3.3rem, 8.25vw, 5.8rem);
+}
+/* "Let's work together" CTA — match the hero bigname treatment
+   (uppercase, heavy weight, mint gradient, vertical stretch) but
+   keep the CTA heading's own font size from the rule above. */
+.cta-section .section-head.head-display.head-gt h2,
+.globe-cta .section-head.head-display.head-gt h2 {
+  text-transform: uppercase; font-weight: 800; line-height: .92;
+  transform: scaleY(1.5); transform-origin: bottom center;
+  color: var(--light-pink);
+  background: var(--grad-pink);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* Merriweather subtext that sits under a section header */
+.head-sub {
+  font-family: var(--serif); font-weight: var(--serif-light);
+  font-size: 1.12rem; line-height: 1.6; color: var(--text-muted);
+  max-width: 40em; margin: 18px auto 0; text-align: center;
+}
+/* Section subtext under Community / Select work uses the light-pink accent */
+.head-sub.prose { color: var(--light-pink); }
+/* "Let's work together" CTA supporting text — white */
+.cta-section .head-sub, .globe-cta .head-sub { color: #fff; }
+
+/* Parallax header — pins to the top, then the following content scrolls up
+   over it (z-index + opaque bg) while the header fades (opacity/translateY in main.js). */
+.phead-wrap { position: relative; }
+/* Select work sits directly in <main> (not inside a .section), so give it the
+   same leading gap a section would have. Community's wrap is inside a .section. */
+main > .phead-wrap { padding-top: var(--gap); }
+.phead { position: sticky; top: 96px; z-index: 1; padding-bottom: clamp(80px, 12vh, 150px); }
+.phead [data-phead] { will-change: opacity, transform; }
+.phead-body { position: relative; z-index: 2; background: var(--bg); }
+/* Select Work: no opaque block — the folder cards themselves scroll over the
+   pinned header text (cards carry their own opaque bg). */
+main > .phead-wrap > .phead-body { background: transparent; }
+@media (prefers-reduced-motion: reduce) {
+  .phead { position: static; padding-bottom: 0; }
+  .phead [data-phead] { opacity: 1 !important; transform: none !important; }
+}
+
+/* Fade in + up on scroll into view (.in toggled by main.js) */
+[data-reveal-up] {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity .75s cubic-bezier(.22, 1, .36, 1), transform .75s cubic-bezier(.22, 1, .36, 1);
+}
+[data-reveal-up].in { opacity: 1; transform: none; }
+/* Profile photo rests at a slight tilt (overrides the reveal-up end state) */
+.timeline-photo.in { transform: rotate(-3.5deg); }
+@media (prefers-reduced-motion: reduce) { [data-reveal-up] { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .timeline-photo { transform: rotate(-3.5deg); } }
+
+.community-track { display: flex; flex: 0 0 auto; align-items: flex-start; gap: 24px; width: max-content; padding-right: 24px; padding-block: 48px 12px; }
+.community-photo { margin: 0; flex: 0 0 auto; position: relative; }
+/* Alternate heights + vertical offsets so the strip isn't a straight line */
+.community-photo:nth-child(odd) { transform: translateY(-28px); }
+.community-photo:nth-child(even) { transform: translateY(20px); }
+.community-photo:nth-child(even) img { height: 280px; }
+.community-photo:nth-child(3n) img { height: 300px; }
+/* Caption pinned onto its own photo (glass pill) — the staggered offsets made
+   free-floating captions read as detached from their images. */
+.community-photo figcaption {
+  position: absolute; left: 10px; bottom: 10px; max-width: calc(100% - 20px);
+  padding: 6px 12px; border-radius: 100px;
+  background: rgba(13, 12, 17, .55);
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  backdrop-filter: blur(10px) saturate(1.4);
+  border: 0.5px solid rgba(255, 255, 255, .16);
+  font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255, 255, 255, .92);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.community-photo img {
+  height: 340px; width: auto; display: block;
+  border-radius: var(--radius-sm); border: 1px solid var(--border);
+  object-fit: cover;
+}
+.event-list li { padding: 14px 0; border-top: 1px solid var(--border-soft); color: var(--text-muted); font-size: .95rem; }
+
+/* Community labeled groups — Talks / Writing / Events */
+.community-groups { margin-top: 16px; }
+.cg-group {
+  display: grid; grid-template-columns: 180px 1fr; gap: 32px;
+  padding: 30px 0; border-top: 1px solid var(--border);
+}
+.cg-group:last-child { border-bottom: 1px solid var(--border); }
+.cg-label {
+  font-family: var(--serif); font-size: 1.5rem; font-weight: var(--serif-light);
+  letter-spacing: 0; color: var(--light-pink); padding-top: 0;
+}
+.cg-list { display: flex; flex-direction: column; }
+.cg-item {
+  margin: 0; color: var(--text); font-size: 1.5rem; line-height: 1.4; text-align: left;
+  padding: 16px 0; border-top: 1px solid var(--border-soft);
+}
+.cg-item:first-child { border-top: 0; padding-top: 0; }
+.cg-item a, .cg-item > span { display: inline-block; transition: transform .35s cubic-bezier(.22, 1, .36, 1), color .2s ease; }
+.cg-item a { color: inherit; text-decoration: none; }
+.cg-item a:hover, .cg-item > span:hover { transform: translateX(24px); }
+.cg-item a:hover { color: var(--primary); }
+/* Rows that link out (have a URL) show the external-link arrow at the right. */
+.cg-item:has(a[href]) { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.cg-item:has(a[href])::after {
+  content: ''; flex: 0 0 auto; width: 15px; height: 15px;
+  color: var(--text-muted); background: currentColor;
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>') center / contain no-repeat;
+          mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>') center / contain no-repeat;
+  transition: color .2s;
+}
+.cg-item:has(a[href]):hover::after { color: var(--primary); }
+@media (max-width: 860px) {
+  .cg-group { grid-template-columns: 1fr; gap: 14px; }
+  .cg-item { text-align: left; }
+}
+
+/* ── CTA band ───────────────────────────────────────────────────── */
+.cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 30px; }
+.cta-section { padding-bottom: clamp(120px, 18vh, 200px); }
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer { border-top: 1px solid var(--border-soft); padding-block: 36px; }
+.footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+.footer small { font-family: var(--mono); color: var(--text-dim); font-size: .85rem; }
+.footer-nav { display: flex; gap: 20px; flex-wrap: wrap; }
+.footer-nav a { font-family: var(--mono); font-size: .85rem; color: var(--text-muted); }
+.footer-nav a:hover { color: var(--text); }
+/* Icon-ready: drop a brand-icon <svg> or <img> inside each footer link (it'll size
+   to 20px and inherit the link color); the aria-label keeps it accessible. */
+.footer-nav a:has(svg), .footer-nav a:has(img) { display: inline-flex; align-items: center; gap: 7px; }
+/* Follower counts sit beside the icon; the link's aria-label carries them for SR users. */
+.footer-count { font-family: var(--mono); font-size: .78rem; color: var(--text-dim); font-variant-numeric: tabular-nums; line-height: 1; }
+.footer-nav a:hover .footer-count { color: var(--text); }
+.footer-nav a svg, .footer-nav a img { width: 20px; height: 20px; display: block; fill: currentColor; }
+
+/* ── Generic page header (About / listing pages) ────────────────── */
+.page-head { padding-top: 140px; padding-bottom: 20px; }
+.page-head h1 { font-size: clamp(2.1rem, 4.5vw, 3.2rem); font-weight: 800; letter-spacing: -.03em; margin-bottom: 18px; }
+.page-head p { color: var(--text-muted); max-width: 42em; font-size: 1.05rem; }
+.prose { max-width: 44em; }
+.prose p { color: var(--text-muted); margin-bottom: 18px; }
+.prose h2 { font-size: 1.4rem; font-weight: 700; margin: 40px 0 14px; color: var(--text); letter-spacing: -.01em; }
+
+/* =====================================================================
+   CASE STUDY OVERLAY  (light theme sheet that slides over the site)
+   Also used as the standalone case-study page body via .cs-standalone
+   ===================================================================== */
+.cs-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  /* Tint now lives on body::before so it can fade independently; panel is solid */
+  background: transparent;
+  visibility: hidden;   /* no opacity fade — the panel stays solid; it slides in */
+  transition: visibility .5s ease;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.cs-overlay.open { visibility: visible; }
+
+/* Light case-study theme tokens. Declared on the overlay as well as the sheet
+   because the fixed topbar (and its progress bar) is appended to .cs-overlay,
+   outside .cs-sheet. */
+.cs-overlay, .cs-sheet {
+  --cs-bg: #ffffff;
+  --cs-text: #17151b;
+  --cs-muted: #5c5866;
+  --cs-border: #e7e5ea;
+  --cs-accent: #5b3df5;
+}
+.cs-sheet {
+  position: relative;
+  width: 100%;                 /* full-width, edge to edge */
+  max-width: none;
+  margin-top: 9vh;             /* the peek of the page behind it */
+  min-height: 91vh;
+  padding-top: 64px;           /* breathing room at the top of the overlay */
+  background: var(--cs-bg);    /* plain white — no grid */
+  color: var(--cs-text);
+  border-radius: 22px 22px 0 0;
+  box-shadow: 0 0 60px rgba(0,0,0,.4);
+  font-family: var(--font);
+
+  /* Slide UP from the bottom of the viewport */
+  transform: translateY(100vh);
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+  will-change: transform;
+}
+.cs-overlay.open .cs-sheet { transform: translateY(0); }
+
+/* ── Desktop card-to-modal morph (overlay.js adds .cs-morph / .cs-revealed) ──
+   The ghost is the rectangle that grows from the clicked card into the
+   sheet's frame, crossfading dark → white. While it flies, the real sheet
+   is already in place but invisible; .cs-revealed swaps it in and fades
+   the content up. */
+.cs-morph-ghost {
+  position: fixed; z-index: 560; pointer-events: none;
+  background: var(--bg);
+  box-shadow: 0 0 60px rgba(0, 0, 0, .4);
+}
+.cs-overlay.cs-morph .cs-sheet {
+  transition: none; transform: none;   /* skip the slide-up; the ghost is the animation */
+  opacity: 0;
+}
+.cs-overlay.cs-morph.cs-revealed .cs-sheet { opacity: 1; }
+.cs-overlay.cs-morph .cs-sheet .cs-close,
+.cs-overlay.cs-morph .cs-sheet .cs-layout {
+  opacity: 0; transform: translateY(14px);
+}
+.cs-overlay.cs-morph.cs-revealed .cs-sheet .cs-close,
+.cs-overlay.cs-morph.cs-revealed .cs-sheet .cs-layout {
+  opacity: 1; transform: none;
+  transition: opacity .45s ease .06s, transform .45s cubic-bezier(.22, 1, .36, 1) .06s;
+}
+/* Desktop: float the overlay card with an even 16px gap on all sides;
+   all corners rounded. */
+@media (min-width: 861px) {
+  /* Clip everything to the floating card's bounds so scrolling content can't
+     spill into the 16px border (i.e. no strip peeking above the topbar). */
+  .cs-overlay { clip-path: inset(16px round 22px); }
+  .cs-sheet {
+    width: auto; margin: 16px;
+    min-height: calc(100vh - 32px); border-radius: 22px;
+  }
+}
+
+/* ── Fixed mini-header inside the case-study overlay ────────────── */
+.cs-topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 540;
+  display: flex; align-items: center; gap: 18px;
+  padding: 12px 24px 14px;
+  background: rgba(255, 255, 255, .94);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e7e5ea;
+  transform: translateY(-100%);
+  transition: transform .3s ease;
+}
+.cs-topbar.visible { transform: translateY(0); }
+/* Desktop: keep the mini-header within the floating card's 16px bounds + rounded top */
+@media (min-width: 861px) {
+  .cs-topbar { top: 16px; left: 16px; right: 16px; border-radius: 22px 22px 0 0; }
+}
+.cs-back {
+  width: 38px; height: 38px; border-radius: 100px;
+  background: #f1f0f3; border: 1px solid #e7e5ea;
+  display: grid; place-items: center; flex: 0 0 auto;
+  font-size: 1rem; color: #17151b;
+  font-family: inherit; cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.cs-back:hover { background: #e4e2e8; transform: scale(1.05); }
+.cs-topbar-title {
+  /* Absolute-centered in the bar so the left-aligned back button doesn't
+     shift the title off true center. */
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  max-width: 66%; text-align: center;
+  font-family: var(--display); font-synthesis: none;
+  text-transform: uppercase; letter-spacing: -.01em;
+  font-size: 1.5rem; font-weight: 600; color: #17151b;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+/* Reading progress along the topbar's bottom edge */
+.cs-progress {
+  position: absolute; left: 0; right: 0; bottom: -1px; height: 3px;
+  background: transparent;
+}
+.cs-progress span {
+  display: block; height: 100%; width: 0;
+  background: var(--cs-accent);
+}
+
+.cs-close {
+  position: absolute; top: 24px; left: 28px;
+  width: 42px; height: 42px; border-radius: 100px;
+  background: #f1f0f3; border: 1px solid var(--cs-border);
+  display: grid; place-items: center; cursor: pointer; color: #17151b; z-index: 6;
+  transition: background .2s, transform .2s;
+}
+.cs-close:hover { background: #e4e2e8; transform: scale(1.05); }
+
+/* 3-column grid: [TOC nav] [centered content] [empty].
+   The empty third column visually centers the content; selected
+   elements bleed right into it on wide screens. */
+.cs-layout {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(0, 720px) minmax(180px, 1fr);
+  justify-content: center;
+  gap: 64px;
+  padding: 8px 48px 110px;
+}
+/* Sticky table of contents */
+/* Pull left so its edge lines up with the close (✕) button: the .cs-layout
+   has 48px of left padding, the .cs-close sits at left:28px → shift -20px. */
+.cs-toc { position: sticky; top: 84px; align-self: start; height: max-content; margin-left: calc(28px - 48px); }
+.cs-toc ul { display: flex; flex-direction: column; gap: 4px; }
+.cs-toc a {
+  display: block; padding: 6px 0; font-size: 1rem; color: var(--cs-muted);
+  border-left: 2px solid transparent; padding-left: 12px; transition: color .2s, border-color .2s;
+}
+.cs-toc a:hover { color: var(--cs-text); }
+.cs-toc a.active { color: var(--cs-text); border-color: transparent; font-weight: 600; }
+
+.cs-main { min-width: 0; }
+.cs-main h1 { font-family: var(--display); font-synthesis: none; font-size: 5rem; text-transform: uppercase; font-weight: 800; letter-spacing: -.01em; line-height: 1.05; margin-bottom: 18px; }
+.cs-deck { font-family: var(--serif); font-weight: var(--serif-light); font-size: 1.15rem; line-height: 1.6; color: var(--cs-muted); max-width: 36em; margin-bottom: 36px; }
+/* ── Case-study cover band ──────────────────────────────────────────
+   The top of every overlay mirrors the case study's cover slide in
+   presentation mode (.deck-slide--cs-title in deck.css): the dark deck
+   surface with its drifting grid, the title in Neudron filled with the
+   light-pink gradient and stretched vertically, and the standfirst
+   bottom-right. overlay.js moves the <h1> / .cs-deck up into it. */
+.cs-sheet.has-cs-hero { padding-top: 0; }
+.cs-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--bg);
+  border-radius: 22px 22px 0 0;
+  /* Left pad matches .cs-close / .cs-toc (28px from the sheet edge). */
+  padding: clamp(76px, 12vh, 132px) clamp(28px, 6vw, 88px) clamp(36px, 6vh, 64px);
+  padding-left: 28px;
+  /* Full-height cover, like a slide: on mobile the sheet starts 9vh down,
+     on desktop it floats inside a 16px inset. */
+  min-height: calc(100dvh - 9vh);
+  display: flex;
+  align-items: flex-end;
+}
+@media (min-width: 861px) {
+  .cs-hero {
+    /* An explicit height (not just min-height) is what gives the size
+       container a definite block size for height queries to resolve
+       against — with `min-height` alone Chrome reports 0 and the cqh
+       rules below never match. */
+    height: calc(100dvh - 32px);
+    /* Size container, so the cover type scales off the band's own height
+       (cqh below) rather than only its width — a short laptop viewport gets
+       a proportionally smaller title, exactly like a slide. Desktop only:
+       size containment fixes the height, and on phones the stacked title +
+       standfirst need to be free to grow past one screen. */
+    container-type: size;
+    container-name: csHero;
+  }
+}
+/* Same drifting grid as the deck's cover slides. */
+.cs-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(208, 188, 255, .07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(208, 188, 255, .07) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 100% 88% at 50% 42%, #000 22%, transparent 82%);
+          mask-image: radial-gradient(ellipse 100% 88% at 50% 42%, #000 22%, transparent 82%);
+  animation: cs-hero-grid-drift 40s linear infinite;
+}
+@keyframes cs-hero-grid-drift {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 48px 0, 48px 0; }
+}
+/* Cover art / device placeholder, bleeding off the right edge behind the
+   copy — the same slot it takes on a title slide. Positioned here rather
+   than by deck.css, whose cover rules are fixed to the slide stage. */
+.cs-hero-art {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.cs-hero-art--laptop { right: -14%; width: 89%; }
+.cs-hero-art--free   { right: -4%;  width: 56%; }
+.cs-hero-art--phone  { right: 8%;   width: clamp(288px, 31%, 480px); }
+.cs-hero-art img { width: 100%; height: auto; }
+.cs-hero-art .deck-cs-device { position: static; opacity: 1; transform: none; transition: none; }
+/* The empty-well label: deck.css sizes it from --t-nano, which is scoped to
+   .deck, so give it its own size out here. */
+.cs-hero-art .deck-laptop-screen { align-items: center; }
+/* Fill the display edge to edge, as deck.css does on slides — `contain`
+   was letterboxing screenshots whose aspect differs from the machine's,
+   leaving dark bands beside the art. Anchor the crop top-left so the
+   screenshot reads like an app on screen (nav bars, page chrome) rather
+   than a centered slice. */
+.cs-hero-art .deck-laptop-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left top;
+}
+.cs-hero-art .deck-laptop-lbl { font-size: .7rem; align-self: center; }
+/* Scrim: the art emerges from the dark and the copy stays readable on it. */
+.cs-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top,
+    rgba(13, 12, 17, .96) 0%,
+    rgba(13, 12, 17, .78) 22%,
+    rgba(13, 12, 17, .32) 42%,
+    transparent 60%);
+}
+/* Title left, description right — the deck's two even columns. */
+.cs-hero-inner {
+  position: relative;
+  z-index: 2;   /* above the scrim (1) and the art (0) */
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: end;
+  gap: clamp(28px, 4.5vw, 84px);
+}
+.cs-hero-title {
+  margin: 0;
+  font-family: var(--display);
+  font-synthesis: none;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-wrap: balance;
+  /* width-based fallback; the @container rule below takes over on desktop */
+  font-size: clamp(2.4rem, 5.4vw, 4.6rem);
+  /* tight leading — the scaleY below multiplies it back to about normal */
+  line-height: .76;
+  letter-spacing: -.01em;
+  /* pad the paint box so background-clip:text doesn't shave the glyphs */
+  padding-block: .14em;
+  /* stretch the glyphs taller without widening them, as on the cover slide */
+  transform: scaleY(1.5);
+  transform-origin: bottom left;
+  color: var(--light-pink);   /* fallback if background-clip:text is unsupported */
+  background: var(--grad-pink);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cs-hero-desc {
+  margin: 0;
+  text-align: right;
+  color: var(--light-pink);
+  font-family: var(--serif);
+  font-weight: var(--serif-light);
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+/* The title's paint-box padding (.14em, ×1.5 vertical stretch) ends its
+   glyphs ~.21 of its font-size above the shared bottom edge; lift the
+   standfirst by the same amount so the two columns end level. Desktop
+   only — on phones the columns stack. */
+@media (min-width: 861px) {
+  .cs-hero-desc { margin-bottom: calc(clamp(2.4rem, 5.4vw, 4.6rem) * .21); }
+}
+/* Type keyed to the cover band's height: 1cqh = 1% of the band, so the
+   title and standfirst hold their proportions on a short laptop screen the
+   same way a slide does. Width still caps it so a wide, short window can't
+   run the title off the column. */
+@container csHero (min-height: 1px) {
+  /* Cover scale, as on the deck's title slides: the title is sized to run
+     down a real share of the band's height (each line is .76em × the 1.5
+     stretch ≈ 1.14em tall), with the inline cap keeping a long title inside
+     its column. */
+  .cs-hero-title { font-size: clamp(2.4rem, min(17cqh, 10.5cqi), 8.5rem); }
+  .cs-hero-desc  { font-size: clamp(.95rem, min(2.6cqh, 1.5cqi), 1.3rem); }
+  /* Same .21×title-size lift as the width-based rule, keyed to the same
+     container-scaled title font so the columns stay level at every size. */
+  .cs-hero-desc  { margin-bottom: calc(clamp(2.4rem, min(17cqh, 10.5cqi), 8.5rem) * .21); }
+  /* Height cap for the art: each slot's width is also expressed as a share
+     of the band's height (width ÷ height of that artwork), so a short
+     window scales the machine down instead of clipping it. */
+  .cs-hero-art--laptop { width: min(89%, 140cqh); }
+  .cs-hero-art--free   { width: min(56%, 100cqh); }
+  .cs-hero-art--phone  { width: min(clamp(288px, 31%, 480px), 52cqh); }
+}
+/* The ✕ sits on the dark band, so it flips to the deck's dark treatment. */
+.cs-sheet.has-cs-hero .cs-close {
+  background: rgba(255, 255, 255, .08);
+  border-color: rgba(255, 255, 255, .18);
+  color: #fff;
+}
+.cs-sheet.has-cs-hero .cs-close:hover { background: rgba(255, 255, 255, .16); }
+/* The reading layout starts below the band, not under a 64px pad. */
+.cs-sheet.has-cs-hero .cs-layout { padding-top: clamp(40px, 6vh, 72px); }
+@media (prefers-reduced-motion: reduce) {
+  .cs-hero::before { animation: none; }
+}
+@media (max-width: 860px) {
+  .cs-hero {
+    border-radius: 18px 18px 0 0;
+    padding: 84px 22px 40px;
+  }
+  .cs-hero-inner { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .cs-hero-desc { text-align: left; font-size: .98rem; }
+  /* One column, so the art sits above the copy rather than behind it, and
+     the scrim comes up higher to keep the stacked text clear of it. Anchor
+     the device's TOP edge (not its center, which let a tall laptop poke
+     above the band and get clipped) just below the ✕, so the whole machine
+     always starts inside the display. */
+  .cs-hero-art { top: 84px; transform: none; }
+  .cs-hero-art--laptop { right: -18%; width: 96%; }
+  .cs-hero-art--free { right: -6%; width: 78%; }
+  .cs-hero-art--phone { right: 6%; width: 46%; }
+  .cs-hero::after {
+    background: linear-gradient(to top,
+      rgba(13, 12, 17, .97) 0%,
+      rgba(13, 12, 17, .93) 44%,
+      rgba(13, 12, 17, .55) 62%,
+      transparent 82%);
+  }
+}
+
+/* ── Hero carousel ──────────────────────────────────────────────── */
+.cs-carousel { position: relative; margin: 0 0 56px; outline: none; }
+/* Bleed right into the empty third column; off-slides are clipped */
+@media (min-width: 1080px) {
+  .cs-carousel { margin-right: calc(-240px - 64px); }
+}
+.cs-carousel-viewport { overflow: hidden; border-radius: 4px; }
+.cs-carousel-track { display: flex; gap: 16px; transition: transform .45s cubic-bezier(.22, 1, .36, 1); will-change: transform; }
+.cs-slide {
+  flex: 0 0 auto;
+  height: clamp(300px, 52vh, 500px);
+  width: auto;
+  background: #e9e7ee;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+/* image/video slides size their width to the media's natural proportions */
+.cs-slide img, .cs-slide video { height: 100%; width: auto; object-fit: contain; display: block; }
+/* placeholder slides (no image) keep a 16:9 footprint so they don't collapse */
+.cs-slide:has(.cs-slide-tag) { aspect-ratio: 16 / 9; }
+.cs-slide-tag {
+  position: absolute; left: 14px; bottom: 12px;
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .14em;
+  color: #8c8896;
+}
+.cs-figure {
+  aspect-ratio: 16/9; max-width: 42em; margin: 8px 0 24px;
+  background: #e9e7ee; border: 1px solid var(--cs-border); border-radius: 8px;
+  display: grid; place-items: center; overflow: hidden;
+}
+.cs-figure span {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .14em;
+  color: #8c8896; text-transform: uppercase;
+}
+.cs-figure img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Hero video: fills the text/content column width (no side bleed), light gray border. */
+.cs-figure.cs-hero-video { max-width: none; margin: 8px 0 40px; background: #fff; border: 1px solid #e2e0e8; border-radius: 8px; }
+/* Captioned screenshot: an image box with a caption beneath. */
+.cs-shot { max-width: 42em; margin: 8px 0 24px; }
+.cs-shot .cs-figure { margin: 0; border-radius: 8px; }
+.cs-shot figcaption { font-size: .82rem; color: var(--cs-muted); margin-top: 10px; text-align: center; }
+
+.cs-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  max-width: 42em; margin: 8px 0 24px;
+}
+.cs-grid .cs-figure { aspect-ratio: 1/1; margin: 0; max-width: none; }
+@media (max-width: 560px) { .cs-grid { grid-template-columns: 1fr; } }
+
+.cs-carousel--portrait .cs-slide { aspect-ratio: auto; height: clamp(360px, 60vh, 560px); }
+.cs-carousel--portrait .cs-slide:has(.cs-slide-tag) { aspect-ratio: 9 / 16; }
+@media (max-width: 560px) { .cs-carousel--portrait .cs-slide { height: clamp(320px, 64vh, 480px); } }
+
+.cs-car-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 46px; height: 46px; border-radius: 100px;
+  background: rgba(255,255,255,.92); border: 1px solid var(--cs-border);
+  color: #17151b; font-size: 1.5rem; line-height: 1;
+  cursor: pointer; display: grid; place-items: center; z-index: 4;
+  box-shadow: 0 4px 16px rgba(0,0,0,.14);
+  transition: background .2s, transform .2s, opacity .2s;
+}
+.cs-car-btn:hover:not(:disabled) { background: #fff; transform: translateY(-50%) scale(1.06); }
+.cs-car-btn.prev { left: 16px; }
+.cs-car-btn.next { right: 16px; }
+.cs-car-btn:disabled { opacity: .3; cursor: default; }
+
+.cs-main h2 { font-family: var(--display); font-synthesis: none; font-size: 3rem; text-transform: capitalize; font-weight: 800; letter-spacing: -.01em; margin: 52px 0 18px; scroll-margin-top: 80px; }
+.cs-main h3 { font-size: 1.05rem; font-weight: 700; margin: 28px 0 8px; }
+.cs-main p { font-family: var(--serif); font-weight: var(--serif-light); line-height: 1.75; color: #36333c; margin-bottom: 16px; max-width: 42em; }
+/* Inline bold inside body paragraphs reads as plain text (titles are headings, not <strong>) */
+.cs-main p strong, .cs-main p b { font-weight: 400; }
+.cs-main ul.bullets { font-family: var(--serif); font-weight: var(--serif-light); line-height: 1.7; list-style: disc; padding-left: 22px; margin-bottom: 16px; color: #36333c; max-width: 42em; }
+.cs-main ul.bullets li { margin-bottom: 6px; }
+/* Stat cells share 1px internal grid lines (the gap reveals the container bg);
+   the outer perimeter has no stroke. */
+/* Divider lines via 1px gaps over the border colour; cells are filled with the
+   page bg so only the lines show (no grey card). */
+.cs-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; margin: 8px 0 24px; background: var(--cs-border); }
+/* blocks of exactly 4 stat cards stack 2×2 instead of a cramped single row */
+.cs-metrics:has(.cs-metric:nth-child(4):last-child) { grid-template-columns: repeat(2, 1fr); }
+.cs-metric { background: var(--cs-bg); padding: 20px; }
+.cs-metric .num { font-family: var(--serif); font-size: 1.9rem; font-weight: 700; letter-spacing: -.02em; color: #000; }
+.cs-metric .lbl { font-size: .85rem; color: var(--cs-muted); margin-top: 4px; }
+.cs-note { color: #9b97a3; font-size: .85rem; margin-top: 36px; }
+.cs-diagram { margin: 30px 0 8px; }
+.cs-diagram svg { width: 100%; height: auto; display: block; }
+.cs-diagram figcaption { font-size: .82rem; color: var(--cs-muted); margin-top: 14px; text-align: center; }
+
+/* ── Case-study tables ──────────────────────────────────────────── */
+.cs-table {
+  width: 100%;
+  border-collapse: separate;  /* needed for border-radius to apply */
+  border-spacing: 0;
+  margin: 28px 0 36px;
+  font-size: .92rem;
+  border: 1px solid var(--cs-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.cs-table caption {
+  caption-side: bottom;
+  text-align: left;
+  padding-top: 10px;
+  font-size: .78rem;
+  color: #9b97a3;
+}
+.cs-table th {
+  text-align: left;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--cs-muted);
+  background: #f6f5f8;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--cs-border);
+}
+.cs-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--cs-border);
+  color: var(--cs-text);
+  vertical-align: top;
+}
+.cs-table tbody tr:last-child td { border-bottom: none; }
+.cs-table tbody tr:hover { background: #faf9fb; }
+.cs-table td:first-child { font-weight: 600; }
+
+body.cs-lock { overflow: hidden; }
+/* Full-viewport backdrop tint behind the case-study panel. Lives on a persistent
+   body::before (not the clipped overlay) so it fades IN on open and OUT on close
+   as the panel slides up/down, while the panel itself stays solid. */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 499;
+  background: rgba(8, 7, 11, .45);
+  opacity: 0; pointer-events: none;
+  transition: opacity .5s ease;
+}
+body.cs-lock::before { opacity: 1; }
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  /* Desktop-style header on mobile: the centered pill of links — no wordmark,
+     no hamburger, no full-screen menu. */
+  .nav-toggle { display: none; }
+  .nav-logo { display: none; }
+  .nav-links {
+    position: absolute; left: 50%; top: 16px; transform: translateX(-50%);
+    background: rgba(13, 12, 17, .6);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 999px; padding: 12px 20px; gap: 18px;
+  }
+  .nav-links a { font-size: .9rem; }
+  .nav-inner { padding-inline: 20px; }
+
+  /* Scale the wavy "on a path" arc text 2x on mobile (section clips the overflow) */
+  .arc svg { width: 200%; margin-left: -50%; }
+
+  .hero { padding-top: 120px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  .hero-photo { max-width: 280px; order: -1; }
+  .hello-pill { top: -14px; right: -8px; font-size: .85rem; padding: 12px 18px; }
+  .badge-circle { width: 120px; height: 120px; left: -28px; bottom: -28px; }
+
+  /* Stack image over text on mobile; drop the alternating side-by-side layout.
+     Full-bleed: the folder borders run the full width of the viewport.
+     (Selectors repeat :nth-child(odd) to outrank the desktop alternating rule
+     so EVERY card shows image first, then title.) */
+  .card { grid-template-columns: 1fr; gap: 16px; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+  .card .card-media, .card:nth-child(odd) .card-media { order: -1; }
+  .card .card-body, .card:nth-child(odd) .card-body { order: 0; }
+  .belief-grid { grid-template-columns: 1fr; gap: 48px; }
+  /* Profile photo: ~half the viewport wide, centered */
+  .timeline-photo { width: 50vw; margin-inline: auto; }
+  .belief-text { position: static; }
+  .timeline { gap: 44px; }
+  .timeline-group { text-align: center; }   /* centre to match desktop + the about timeline */
+  .community-photo img { height: 220px; }
+  .community-photo:nth-child(even) img { height: 185px; }
+  .community-photo:nth-child(3n) img { height: 200px; }
+  .community-photo:nth-child(odd) { transform: translateY(-14px); }
+  .community-photo:nth-child(even) { transform: translateY(10px); }
+  .community-track { gap: 16px; padding-right: 16px; padding-block: 28px 8px; }
+
+  :root { --gap: 80px; }
+  .container { padding-inline: 20px; }
+
+  /* Float the sheet off the bottom edge (a bottom margin) with all corners rounded */
+  .cs-sheet { margin-top: 24px; margin-bottom: 16px; border-radius: 18px; padding-top: 20px; }
+  .cs-layout { grid-template-columns: 1fr; gap: 24px; padding: 8px 22px 72px; }
+  .cs-toc { display: none; }
+  .cs-carousel { margin-right: 0; }
+  /* Main carousels: each slide fills the viewport width so the (landscape) image isn't cut off */
+  .cs-carousel:not(.cs-carousel--portrait) .cs-slide { flex: 0 0 100%; width: 100%; height: auto; aspect-ratio: auto; }
+  .cs-carousel:not(.cs-carousel--portrait) .cs-slide img,
+  .cs-carousel:not(.cs-carousel--portrait) .cs-slide video { width: 100%; height: auto; object-fit: contain; }
+  .cs-carousel:not(.cs-carousel--portrait) .cs-slide:has(.cs-slide-tag) { aspect-ratio: 16 / 9; }
+  .cs-car-btn { width: 40px; height: 40px; }
+  /* Close button sits ABOVE the text on mobile (in normal flow, not floated) */
+  .cs-close { position: static; margin: 0 0 18px 22px; }
+  /* …except on cover-band sheets, where a static button pushes the dark
+     hero down and bares the sheet's white ground — keep it floating on
+     the band, which starts flush at the sheet top. */
+  .cs-sheet.has-cs-hero .cs-close { position: absolute; top: 20px; left: 22px; margin: 0; }
+  .cs-sheet.has-cs-hero { padding-top: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+
+/* =====================================================================
+   MY STORY  — scroll-driven vertical timeline + Asia globe
+   (about.html). Reuses the dark theme tokens above.
+   ===================================================================== */
+
+/* ── Page intro ─────────────────────────────────────────────────── */
+.story-head {
+  position: relative;
+  max-width: none; padding: 128px 0 96px; text-align: left;
+  /* tint dissolves into the page bg — no hard edge (matches the homepage hero) */
+  background: linear-gradient(#131217 0%, #131217 55%, var(--bg) 100%);
+}
+/* Subtle grid backdrop fading toward the bottom (matches the homepage hero). */
+.story-head::before {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(var(--border-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: linear-gradient(#000 60%, transparent 100%);
+          mask-image: linear-gradient(#000 60%, transparent 100%);
+  opacity: .5; pointer-events: none;
+}
+.story-head-grid { display: grid; grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 40px; max-width: var(--max); margin: 0 auto; padding-inline: 32px; position: relative; z-index: 1; }
+.story-head-text { max-width: 72em; margin: 0 auto; }
+/* Big "ABOUT" in the video area — same treatment as the homepage hero name
+   (Neudron, uppercase, vertically stretched, white → mint gradient). */
+.story-bigname {
+  font-family: var(--display);
+  text-transform: uppercase; font-synthesis: none;
+  margin: 0; max-width: none; text-align: center;
+  font-size: clamp(3.6rem, 18vw, 14rem); font-weight: 800;
+  line-height: .92; letter-spacing: -.01em;
+  transform: scaleY(1.5); transform-origin: bottom center;
+  color: var(--mint);   /* fallback for browsers without background-clip: text */
+  background: var(--grad-mint);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* Background hero video filling the section. */
+.story-head-video {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #0f0e13;
+  --hero-dot: #0d0c11;   /* dots match the page background */
+}
+/* Seamless dot field (16px lattice) masked into a gradient: nothing in the top third,
+   fading in below and solid at the bottom — reads as a dotted gradient. */
+.story-head-video::before {
+  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background-image: radial-gradient(var(--hero-dot) 1px, transparent 1.6px);
+  background-size: 16px 16px; background-position: 0 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 33%, #000 100%);
+          mask-image: linear-gradient(to bottom, transparent 33%, #000 100%);
+}
+.story-head-video video { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Scrim only: keeps the white hero text legible and fades into the page bg at the bottom. */
+.story-head-video::after {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(180deg, rgba(19, 18, 23, .55) 0%, rgba(19, 18, 23, .35) 45%, var(--bg) 100%);
+}
+/* Desktop: taller hero with the text nested toward the bottom, more breathing room up top. */
+@media (min-width: 861px) {
+  .story-head {
+    min-height: 92vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding-top: 200px; padding-bottom: 64px;
+  }
+}
+/* Tagline band — sits below the hero video, centered on the page bg. */
+.story-tagline-band { text-align: center; padding-block: 64px 8px; }
+.story-tagline {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem); font-weight: var(--serif-light); letter-spacing: -.02em;
+  line-height: 1.4;
+  color: var(--text); max-width: 30em; margin: 0 auto;
+}
+.story-tagline-sub {
+  font-family: var(--serif); font-weight: var(--serif-light);
+  font-size: 1.05rem; line-height: 1.7;
+  color: var(--light-pink); opacity: .85;
+  max-width: 44em; margin: 22px auto 0; text-align: center;
+}
+.story-tagline-sub strong { font-weight: 400; color: var(--text); }
+.story-intro {
+  max-width: 42em; margin: 0;
+  font-family: var(--serif); font-weight: var(--serif-light);
+  color: var(--light-pink); font-size: 1.15rem; line-height: 1.7;
+}
+.story-intro + .story-intro { margin-top: 18px; }
+/* Placeholder image in the right column */
+.story-head-media {
+  height: calc(100vh - 132px); border-radius: 4px; overflow: hidden;   /* fills the hero down to the bottom edge */
+  position: sticky; top: 100px; align-self: start;   /* stay pinned while the text/prose scroll, until the timeline */
+}
+.story-head-media img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+
+/* Hero content fades up from below on load (About page) */
+@keyframes story-hero-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: none; }
+}
+.story-head-text > *, .story-head-media {
+  animation: story-hero-up .75s cubic-bezier(.22, 1, .36, 1) both;
+}
+.story-head-text > *:nth-child(1) { animation-delay: .7s; }
+.story-head-text > *:nth-child(2) { animation-delay: .13s; }
+.story-head-text > *:nth-child(3) { animation-delay: .21s; }
+.story-head-text > *:nth-child(4) { animation-delay: .27s; }
+/* Bigname keeps its vertical stretch through and after the entrance
+   (the shared story-hero-up ends on transform:none, which would flatten it). */
+@keyframes story-bigname-up {
+  from { opacity: 0; transform: translateY(28px) scaleY(1.5); }
+  to   { opacity: 1; transform: scaleY(1.5); }
+}
+.story-head-text > .story-bigname { animation-name: story-bigname-up; }
+@keyframes story-hero-right {
+  from { opacity: 0; transform: translateX(48px); }
+  to   { opacity: 1; transform: none; }
+}
+.story-head-media { animation: story-hero-right .8s cubic-bezier(.22, 1, .36, 1) .17s both; }
+
+/* About highlights — three bordered cards under the hero */
+.story-about-band { padding-block: 64px; }   /* keep .container's horizontal padding intact */
+.about-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  max-width: var(--max); margin: 0 auto;
+}
+.about-card {
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 16px; padding: 36px 32px;
+}
+.about-card-illo {
+  display: block; width: 64px; height: 64px; margin: 0 0 28px;
+}
+.about-card-illo rect, .about-card-illo line,
+.about-card-illo circle, .about-card-illo ellipse, .about-card-illo path {
+  stroke-width: 1.25; fill: none;
+  vector-effect: non-scaling-stroke;
+}
+.about-card h3 {
+  margin: 0 0 16px;
+  /* GT America's lightest face is 400 — asking for less only bought a
+     synthesised weight */
+  font-family: var(--font); font-weight: 400;
+  font-size: 1.5rem; line-height: 1.25; letter-spacing: -.01em;
+  color: var(--primary);
+}
+.about-card p {
+  margin: 0;
+  font-family: var(--serif); font-weight: var(--serif-light);
+  font-size: 1.05rem; line-height: 1.65; color: var(--text);
+}
+/* Company logo lockup — small 1:1 squares, 2px rounded */
+.logo-lockup { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+.logo-chip {
+  width: 60px; aspect-ratio: 1 / 1; border-radius: 2px; overflow: hidden;
+  background: rgba(255,255,255,.05); border: 1px solid var(--border);
+  display: grid; place-items: center;
+}
+.logo-chip img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+/* Centered "My story" band that opens the timeline */
+.story-band { text-align: center; padding-block: 64px 24px; }
+.story-band h2 {
+  font-family: var(--display); font-synthesis: none;
+  font-size: clamp(46px, 7.2vw, 100px); font-weight: 700; line-height: 1; letter-spacing: -.02em;
+  text-transform: uppercase;
+  /* light-pink linear gradient, fading up */
+  color: var(--light-pink);   /* fallback for no background-clip: text */
+  background: var(--grad-pink);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.story-lead {
+  max-width: 40em; margin: 28px auto 0; text-align: center;
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem); font-weight: var(--serif-light); line-height: 1.5;
+}
+
+/* ── The rail ───────────────────────────────────────────────────── */
+.timeline-rail { position: relative; max-width: var(--max); margin: 0 auto; padding: 72px 32px 80px; }
+/* Continuous central spine — draws top→bottom on scroll (--tl-draw set in main.js) */
+.timeline-rail::before {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 50%;
+  width: 2px; transform: translateX(-50%) scaleY(var(--tl-draw, 1));
+  transform-origin: top center;
+  background: var(--border);
+}
+
+.tl-row {
+  position: relative;
+  display: grid; grid-template-columns: 1fr 132px 1fr;
+  align-items: center; column-gap: 24px;
+  margin-bottom: 168px;
+}
+.tl-row:last-child { margin-bottom: 0; }
+
+/* Hold the 1996 chapter: its row stays pinned/centred while you scroll through
+   the tall wrapper, so the Street View chapter lingers before the next year. */
+.tl-hold { position: relative; height: 220vh; margin-top: 130px; }
+.tl-hold-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; }
+.tl-hold-sticky > .tl-row { width: 100%; margin-bottom: 0; }
+/* Pin all three to row 1 — without this, the reverse (descending-column)
+   rows wrap the image and text onto separate tracks. */
+.tl-media { grid-column: 1; grid-row: 1; }
+.tl-card  { grid-column: 3; grid-row: 1; }
+.tl-row.reverse .tl-media { grid-column: 3; }
+.tl-row.reverse .tl-card  { grid-column: 1; }
+
+/* Year, pinned to the top of the row on the spine. Its solid background
+   masks the line behind it, so the spine appears to break at each year. */
+.tl-node { grid-column: 2; grid-row: 1; align-self: center; justify-self: center; display: flex; flex-direction: column; align-items: center; }
+.tl-year {
+  position: relative;
+  font-family: var(--display); font-synthesis: none;
+  font-size: calc(clamp(1.2rem, 2vw, 1.6rem) + 24px); font-weight: 800; letter-spacing: -.01em;
+  color: var(--mint); background: var(--bg); padding: 8px 16px;
+  /* Stretch the glyphs taller without widening them (matches the hero bigname). */
+  display: inline-block; transform: scaleY(1.5); transform-origin: center;
+}
+
+/* Media well (image, or the Street View iframe on the first block) */
+.tl-media {
+  aspect-ratio: 16 / 11; border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, #2a2833, #3a3747);
+  position: relative;
+  width: 90%; justify-self: center;   /* trim the photo width by 10% */
+}
+.tl-media img, .tl-media iframe { width: 100%; height: 100%; object-fit: cover; display: block; border: 0; border-radius: 16px; }
+/* Once a real photo loads, the well conforms to the image's own dimensions
+   (no fixed ratio, no cropping). story.js adds .has-photo when it loads. */
+.tl-media.has-photo { aspect-ratio: auto; background: none; }
+.tl-media.has-photo img { height: auto; object-fit: contain; }
+/* Cap the width of portrait/vertical photos so they don't run too tall */
+.tl-media.is-portrait { max-width: 340px; justify-self: center; }
+
+/* 2011 auto-crossfade carousel: 3 stacked images fade between each other on a
+   timer (no controls). Keeps a fixed frame, overriding the single-photo
+   has-photo/is-portrait behaviour so all slides share one box. */
+.tl-media--carousel,
+.tl-media--carousel.has-photo,
+.tl-media--carousel.is-portrait { aspect-ratio: 16 / 11; max-width: none; background: #1a1922; }
+.tl-media--carousel img,
+.tl-media--carousel.has-photo img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; border-radius: 16px;
+  opacity: 0; animation: tl-xfade 15s linear infinite;
+}
+.tl-media--carousel img:nth-of-type(2) { animation-delay: 5s; }
+.tl-media--carousel img:nth-of-type(3) { animation-delay: 10s; }
+@keyframes tl-xfade {
+  0%   { opacity: 0; }
+  5%   { opacity: 1; }
+  33%  { opacity: 1; }
+  40%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tl-media--carousel img { animation: none; opacity: 0; }
+  .tl-media--carousel img:first-of-type { opacity: 1; }
+}
+
+/* Street View backdrop for the 1996 chapter — black base + (placeholder) Street
+   View, full-bleed and fixed; opacity is driven by scroll in story.js. */
+.sv-bg {
+  position: fixed; inset: 0; z-index: -1;
+  /* placeholder "street scene" gradient — replaced by a real SV image when added */
+  background: linear-gradient(180deg, #1b2233 0%, #2c3850 44%, #3a475f 70%, #222a39 100%);
+  opacity: 0; pointer-events: none; will-change: opacity;
+}
+.sv-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.sv-bg::after {                       /* light scrim + vignette so card text stays legible */
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(150% 140% at 50% 38%, transparent 28%, rgba(0,0,0,.6) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.5));
+}
+.sv-bg-tag {
+  position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); z-index: 1;
+  font-family: var(--mono); font-size: .66rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+.tl-media .tl-media-label {
+  position: absolute; left: 14px; bottom: 12px;
+  font-family: var(--mono); font-size: .62rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text-muted); pointer-events: none;
+}
+.tl-media.is-streetview { background: #000; }
+
+/* Keyless Street View launcher (first timeline block) */
+.tl-streetview {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+  text-decoration: none; color: var(--text);
+  background:
+    radial-gradient(120% 90% at 50% 130%, rgba(208,188,255,.22), transparent 60%),
+    linear-gradient(180deg, #1a1922, #0e0d13);
+  transition: transform .2s ease, border-color .2s ease;
+}
+.tl-streetview:hover { border-color: var(--primary); transform: translateY(-2px); }
+.tl-streetview .sv-pin { color: var(--primary); line-height: 0; filter: drop-shadow(0 0 12px rgba(208,188,255,.5)); }
+.tl-streetview .sv-cta {
+  font-family: var(--mono); font-size: .8rem; letter-spacing: .06em; color: var(--primary);
+  border: 1px solid var(--border); border-radius: 100px; padding: 8px 18px;
+  background: rgba(208,188,255,.06); transition: background .2s ease;
+}
+.tl-streetview:hover .sv-cta { background: rgba(208,188,255,.16); }
+
+/* Text card */
+.tl-place {
+  font-family: var(--mono); font-size: .7rem; font-weight: 500;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--primary); margin-bottom: 12px;
+}
+.tl-card h3 { font-family: var(--display); font-synthesis: none; font-size: 3rem; font-weight: 800; letter-spacing: -.01em; line-height: 1.2; margin-bottom: 14px; }
+.tl-body { font-family: var(--serif); font-weight: var(--serif-light); font-size: 1.05rem; color: #fff; line-height: 1.8; max-width: 34em; }
+
+/* Smaller blurred copy of the row's image, sitting behind the text and
+   drifting on scroll (parallax). story.js sets --tl-card-img to the row's
+   own photo; until one loads, the gradient placeholder shows. */
+.tl-card { position: relative; isolation: isolate; }
+.tl-card::before {
+  content: "";
+  position: absolute; z-index: -1;
+  top: 50%; left: 50%;
+  transform: translate(-50%, calc(-50% + var(--tl-parallax, 0px)));
+  width: 74%; aspect-ratio: 16 / 11;   /* matches the larger media well */
+  border-radius: 14px;
+  background: var(--tl-card-img, linear-gradient(135deg, #3a3747, #262430 55%, #18171f));
+  background-size: cover; background-position: center;
+  filter: blur(14px);
+  opacity: .32;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ── Reveal on scroll — pure opacity, no movement ───────────────── */
+/* Rows only fade (no slide — the slide read as too much motion). They fade OUT
+   only once fully off-screen (see story.js), so scrolling back up fades just
+   the row you've scrolled away from, never one still on screen. */
+[data-reveal] {
+  opacity: 0;
+  transition: opacity .7s cubic-bezier(.22,1,.36,1);
+  will-change: opacity;
+}
+[data-reveal].in { opacity: 1; }
+
+/* ── 2025 finale: scroll-driven Asia globe journey ──────────────── */
+/* Full-page blackout that fades in/out as the journey runs (opacity set in JS) */
+.globe-blackout {
+  position: fixed; inset: 0; background: #000;
+  opacity: 0; pointer-events: none; z-index: 90; will-change: opacity;
+}
+
+/* Starfield behind the globe — sits at the back of the stage and fades in once
+   the globe docks into place (opacity driven in story.js). */
+.globe-stars {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0; transition: opacity .5s linear;
+}
+.globe-star { position: absolute; border-radius: 50%; background: #fff; }
+
+/* Tall section provides the scroll distance; the stage is pinned inside it. */
+.globe-scrolly { position: relative; height: 500vh; }
+.globe-stage {
+  position: sticky; top: 0; z-index: 100;
+  height: 100vh; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  text-align: center;
+}
+
+/* Globe canvas covers the viewport (square sized to its larger edge) so the
+   zoomed-in globe spans the full width. Apparent size + vertical position are
+   driven by camera altitude and --globe-shift in JS (shift drops the whole
+   globe below the 2025 header in the zoomed-out state so it's never clipped). */
+.globe-wrap {
+  position: absolute; left: 50%; top: 50%;
+  width: max(100vw, 100vh); height: max(100vw, 100vh);
+  max-width: none; z-index: 2;   /* sits above the CTA title so it emerges from behind */
+  transform: translate(-50%, calc(-50% + var(--globe-shift, 0px)));
+}
+#globe { width: 100%; height: 100%; }
+.globe-wrap canvas { display: block; }
+
+/* City labels on the globe (HTML elements) — IBM Plex Mono, shown only while zoomed in */
+.globe-label-anchor { position: relative; pointer-events: none; }
+.globe-label {
+  position: absolute; bottom: 10px; right: 10px;   /* sits above-left of the city dot, clear of the flight line */
+  font-family: var(--font);
+  font-size: 24px; font-weight: 700; letter-spacing: .01em;
+  color: #fff; white-space: nowrap;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .95);
+  pointer-events: none; user-select: none;
+  opacity: 0; transition: opacity .4s ease;
+}
+.globe-label-anchor.show .globe-label { opacity: 1; }
+
+/* Intro / 2025 header — pinned at the top of the stage, above the globe */
+.globe-intro { position: relative; z-index: 3; max-width: 40em; padding: 11vh 24px 0; }
+.globe-intro .story-finale-year {
+  font-family: var(--display); font-synthesis: none;
+  font-size: calc(clamp(1.2rem, 2vw, 1.6rem) + 24px); font-weight: 800; letter-spacing: -.01em;
+  color: var(--mint); margin-bottom: 24px;
+}
+/* Stretch the 2025 glyphs taller to match .tl-year and the other timeline dates.
+   Scaling an inner span (not the <p>) keeps the mobile connector — the ::before
+   on .story-finale-year — undistorted. */
+.globe-intro .story-finale-year .finale-year-num {
+  display: inline-block; transform: scaleY(1.5); transform-origin: center;
+}
+.globe-intro h2 { font-family: var(--display); font-synthesis: none; font-size: 3rem; font-weight: 800; letter-spacing: -.01em; line-height: 1.2; margin-bottom: 14px; }
+.globe-intro .globe-sub { font-family: var(--serif); font-weight: var(--serif-light); font-size: 1.05rem; line-height: 1.8; color: #fff; max-width: 34em; margin: 0 auto 18px; }
+.globe-scrollcue { font-family: var(--mono); font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--text-dim); }
+
+/* Current-city label during the journey */
+.globe-place {
+  position: absolute; left: 0; right: 0; bottom: 13%; z-index: 3;
+  font-family: var(--mono); font-size: clamp(1rem, 2.4vw, 1.55rem);
+  letter-spacing: .14em; text-transform: uppercase; color: var(--primary);
+  opacity: 0; transition: opacity .35s ease; pointer-events: none;
+  text-shadow: 0 0 18px rgba(0,0,0,.85);
+}
+.globe-place.show { opacity: 1; }
+
+/* "Let's work together" — pulls up from the bottom of the stage over the docked
+   half-globe (translate driven by --cta-up in story.js; 1 = hidden below, 0 = up). */
+.globe-cta {
+  position: absolute; left: 0; right: 0;
+  padding: 0 24px max(14vh, 96px);
+  /* Rise up from below the stage by animating `bottom` (driven by --cta-up in
+     story.js; 1 = hidden below, 0 = docked). We deliberately avoid `transform`
+     here so .globe-cta does NOT form its own stacking context — that lets the
+     title sit BEHIND the globe while the actions stay in FRONT of it. */
+  bottom: calc(var(--cta-up, 1) * -72vh);
+  /* no background box — keep legible over the globe with a soft shadow */
+  text-shadow: 0 2px 24px rgba(0, 0, 0, .7);
+}
+/* 64px timeline connector between the 2026 and "Let's work together" — echoes
+   the spine that leads into each year, carrying the timeline motif to the finale. */
+.globe-cta .cta-tl-line {
+  display: block; width: 2px; height: 64px;
+  /* "Let's work together" is scaleY(1.5) from its bottom, so its glyphs bleed
+     upward by ~half its font size. Clear that bleed (plus a 24px gap) so the bar
+     sits cleanly between the 2026 and the heading at any viewport width. */
+  margin: 0 auto calc(clamp(3.3rem, 8.25vw, 5.8rem) * 0.5 + 24px);
+  /* z-index 1 (< globe's 2): the connector crests up from BEHIND the docked globe,
+     matching the "Let's work together" title. */
+  background: var(--border); position: relative; z-index: 1;
+  /* Draws top→down as the finale scrolls in (--cta-line-draw set in story.js);
+     defaults to 1 so the static / reduced-motion fallback shows it fully. */
+  transform: scaleY(var(--cta-line-draw, 1)); transform-origin: top center;
+}
+/* 2026 — the chapter after the journey. Same treatment as the timeline dates
+   (.tl-year): Neudron, mint, vertically stretched. Leads into the CTA title. */
+.globe-cta .cta-year {
+  position: relative; z-index: 1;
+  font-family: var(--display); font-synthesis: none;
+  font-size: calc(clamp(1.2rem, 2vw, 1.6rem) + 24px); font-weight: 800; letter-spacing: -.01em;
+  color: var(--mint); text-shadow: none;
+  display: inline-block; transform: scaleY(1.5); transform-origin: bottom center;
+  margin-bottom: 24px;
+}
+/* The title crests up from BEHIND the docked globe (z-index 1 < globe's 2),
+   while the supporting text + buttons stay in FRONT (z-index 3) and clickable. */
+.globe-cta .section-head { position: relative; z-index: 1; text-shadow: none; }
+.globe-cta .head-sub,
+.globe-cta .cta-actions { position: relative; z-index: 3; }
+/* Nudge just the paragraph up 16px, tightening it under the title (buttons unaffected). */
+.globe-cta .head-sub { top: -16px; }
+/* Lift the title up out of the docked dome so only its bottom edge tucks
+   behind the globe (interactive journey only — the static fallback has no dome). */
+.globe-scrolly:not(.is-static) .globe-cta .section-head { transform: translateY(-14vh); }
+/* The 2026 + its connector ride with the title (year keeps its vertical stretch). */
+.globe-scrolly:not(.is-static) .globe-cta .cta-year { transform: translateY(-14vh) scaleY(1.5); }
+.globe-scrolly:not(.is-static) .globe-cta .cta-tl-line { transform: translateY(-14vh) scaleY(var(--cta-line-draw, 1)); }
+/* Pull the supporting text + buttons up so they sit close under the lifted title. */
+.globe-scrolly:not(.is-static) .globe-cta .head-sub,
+.globe-scrolly:not(.is-static) .globe-cta .cta-actions {
+  transform: translateY(calc(-11vh - 16px));
+  /* Hidden until story.js reveals them a beat after the title lands; the fade
+     itself eases over .45s. (Static / reduced-motion fallback keeps them visible.) */
+  opacity: 0; transition: opacity .45s ease;
+}
+
+.globe-fallback { display: none; padding: 40px 24px; }
+.globe-wrap.no-webgl #globe { display: none; }
+.globe-wrap.no-webgl .globe-fallback { display: block; }
+
+/* Static fallback (reduced motion / no WebGL): no pinning, normal flow */
+.globe-scrolly.is-static { height: auto; }
+.globe-scrolly.is-static .globe-stage { position: relative; height: auto; padding: 70px 0 90px; }
+.globe-scrolly.is-static .globe-wrap {
+  position: relative; left: auto; top: auto; transform: none;
+  width: 100%; max-width: 680px; height: 520px; margin: 28px auto 0;
+}
+.globe-scrolly.is-static .globe-place { display: none; }
+/* Static (mobile) globe auto-rotates on its own — let touches scroll the page. */
+.globe-scrolly.is-static .globe-wrap canvas { pointer-events: none; }
+/* In static mode there's no scroll journey: drop the blackout + scroll cue, and
+   let the "Let's work together" CTA sit in normal flow (it's otherwise translated
+   off-screen by --cta-up, which only the scroll journey animates). */
+.globe-scrolly.is-static .globe-blackout { display: none; }
+.globe-scrolly.is-static .globe-scrollcue { display: none; }
+.globe-scrolly.is-static .globe-cta {
+  position: static; transform: none; padding: 32px 24px 8px;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  /* Full-width, stacked buttons on mobile */
+  .hero-actions, .cta-actions { flex-direction: column; align-items: stretch; }
+  .btn { width: 100%; justify-content: center; }
+  /* Let touches scroll the page (which drives the globe journey) instead of grabbing the globe. */
+  .globe-wrap canvas { pointer-events: none; }
+  .timeline-rail { padding: 48px 20px 8px; }   /* small bottom pad so the spine doesn't dangle into the 2025 gap */
+  .globe-intro { padding-top: 72px; }          /* pull the 2025 up closer (still clears the nav) */
+  /* The 2025 lives in the globe section (separate from the timeline spine), so
+     give it its own connecting line above it — matching the other years — and
+     put it in the globe stage so the blackout can't cut it off. */
+  .globe-intro .story-finale-year { position: relative; }
+  .globe-intro .story-finale-year::before {
+    content: ''; position: absolute; left: 50%; bottom: calc(100% + 16px);
+    transform: translateX(-50%) scaleY(var(--finale-draw, 1)); transform-origin: top center;
+    width: 2px; height: 56px; background: var(--border);   /* 56px reaches up to meet the spine's end (no break) */
+  }
+  /* Each entry gets a solid bg so it masks the central spine across its whole
+     area (year, photo, text and their gaps). The connecting line then shows
+     ONLY in the even gap between entries — linking one paragraph to the next
+     year. */
+  .tl-row { grid-template-columns: 1fr; column-gap: 0; row-gap: 16px; padding: 16px 0; margin-bottom: 40px; background: var(--bg); }
+  .tl-hold { height: 170vh; }
+  /* stack as: year → photo → text, all centred */
+  .tl-media, .tl-card, .tl-node { grid-column: 1 !important; grid-row: auto !important; }
+  .tl-node  { position: static; left: auto; top: auto; transform: none; justify-self: center; align-items: center; order: 0; margin: 0; }
+  .tl-media { order: 1; }
+  .tl-card  { padding: 0 8px; order: 2; text-align: center; }
+  .tl-card::before { display: none; }   /* drop the blurred parallax backdrop on mobile (it overflowed the card) */
+  .tl-year { padding: 6px 14px; margin: 0; line-height: 1; }   /* tight box so the year sits evenly under the line */
+  /* Nest the tagline toward the bottom so the video shows above it on mobile too. */
+  .story-head {
+    min-height: 88vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding-top: 96px; padding-bottom: 40px;
+  }
+  .story-head-grid { grid-template-columns: 1fr; gap: 32px; padding-inline: 20px; }
+  .about-cards { grid-template-columns: 1fr; gap: 16px; }
+  /* Consistent vertical rhythm on mobile: equal section gaps, tighter myStory→timeline */
+  .story-about-band { padding-block: 40px; }
+  .story-band { padding-block: 40px 16px; }
+  .story-band h2 { font-size: 4rem; letter-spacing: .01rem; }
+  /* Social links first, copyright underneath them */
+  .footer-inner { flex-direction: column; justify-content: center; text-align: center; }
+  .footer-nav { order: -1; justify-content: center; width: 100%; }
+  /* Six counts already wrap at this width; drop the GitHub label to save a row. */
+  .footer-count-word { display: none; }
+  .globe-scrolly.is-static .globe-wrap { width: 100%; height: 380px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+}
+
+/* ── Newsletter popover (bottom-right, home) ─────────────────────── */
+/* The wrapper stays click-through so the closed popover's box can't swallow
+   clicks on whatever sits under it (it overlaps the footer socials). The panel
+   re-enables pointer events for itself once open. */
+.subpop { position: fixed; right: 24px; bottom: 24px; z-index: 60; pointer-events: none; }
+.subpop-panel {
+  position: relative;
+  width: 320px; max-width: calc(100vw - 48px);
+  background: #fff; border: 1px solid rgba(0,0,0,.12); border-radius: var(--radius);
+  padding: 22px 22px 20px; box-shadow: 0 24px 60px rgba(0,0,0,.28);
+  transform-origin: bottom right; transform: translateY(12px) scale(.96); opacity: 0;
+  visibility: hidden; pointer-events: none;
+  transition: transform .26s cubic-bezier(.22,1,.36,1), opacity .2s, visibility .26s;
+}
+.subpop.is-open .subpop-panel { transform: translateY(0) scale(1); opacity: 1; visibility: visible; pointer-events: auto; }
+.subpop-close {
+  position: absolute; top: 12px; right: 12px; width: 28px; height: 28px;
+  display: grid; place-items: center; border-radius: 100px; cursor: pointer;
+  background: transparent; border: 0; color: #75717f; transition: color .2s, background .2s;
+}
+.subpop-close:hover { color: #16151c; background: #f0eff3; }
+.subpop-eyebrow { font-family: var(--mono); font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--on-primary); margin-bottom: 8px; }
+.subpop-title { font-family: var(--display); font-synthesis: none; font-size: 2rem; font-weight: 700; letter-spacing: -.01rem; line-height: 1.05; text-transform: uppercase; margin-bottom: 4px; color: #16151c; }
+.subpop-copy { font-family: var(--serif); font-weight: var(--serif-light); font-size: 1.05rem; line-height: 1.5; color: #36333c; margin-bottom: 16px; max-width: 30ch; }
+.subpop-form { display: flex; flex-direction: column; gap: 10px; }
+.subpop-input {
+  width: 100%; padding: 12px 14px; border-radius: var(--radius-sm);
+  background: #f5f4f7; border: 1px solid rgba(0,0,0,.14); color: #16151c;
+  font-family: var(--font); font-size: .95rem; transition: border-color .2s;
+}
+.subpop-input::placeholder { color: #8b8794; }
+.subpop-input:focus { outline: none; border-color: var(--primary); }
+.subpop-input.invalid { border-color: #ff6b8a; }
+.subpop-submit {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 12px 16px; border-radius: 100px; cursor: pointer; border: 0;
+  background: var(--primary); color: var(--on-primary);
+  font-family: var(--mono); font-size: .92rem; font-weight: 500;
+  transition: background .2s, transform .15s;
+}
+.subpop-submit:hover { background: var(--primary-hover); transform: translateY(-1px); }
+.subpop-submit:disabled { opacity: .6; cursor: default; transform: none; }
+.subpop-msg { font-size: .9rem; line-height: 1.45; margin-top: 12px; color: #75717f; }
+.subpop-msg.ok { color: #7ee0a8; }
+.subpop-msg.err { color: #ff9bb0; }
+@media (max-width: 560px) {
+  .subpop { right: 16px; bottom: 16px; }
+}

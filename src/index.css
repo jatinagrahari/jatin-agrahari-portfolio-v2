@@ -1,0 +1,51 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Antonio:wght@700&family=IBM+Plex+Mono:wght@400;500&family=Merriweather:wght@300;400;700&display=swap"); */
+@import "tailwindcss";
+
+@theme {
+  --color-accent: #ff5a36;
+  --color-accent-soft: #ff8a70;
+
+  --color-dark: #0a0a0a;
+  --color-darker: #050505;
+
+  --color-surface: #111111;
+  --color-border: #252525;
+
+  --color-text: #f2efe8;
+  --color-muted: #8d8a84;
+
+  --color-light: #f0c9d6;
+
+  --font-display: "Antonio", sans-serif;
+  --font-serif: "Merriweather", serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-dark);
+    color: white;
+    font-family: var(--font-serif);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+  }
+}
+
+@layer utilities {
+  .bg-grid-pattern {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: center top;
+  }
+}
