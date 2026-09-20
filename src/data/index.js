@@ -124,7 +124,7 @@ export const navLinks = [
   },
   {
     label: "CV",
-    path: "/resume/resume.pdf",
+    path: "/resume/jatinagrahari_resume_v3.0.pdf",
     isExternal: true,
   },
 ];
